@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 
 ROOT = Path(__file__).resolve().parent
 
@@ -75,6 +76,13 @@ STATIC = ROOT / "static"
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _tojson_filter(value) -> Markup:
+    """Safe JSON for embedding in <script> (Jinja has no built-in tojson)."""
+    out = json.dumps(value, ensure_ascii=False)
+    out = out.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+    return Markup(out)
 
 
 def optimize_hero_in_dist(prop: dict, dest_photos: Path) -> None:
@@ -225,6 +233,7 @@ def main() -> int:
     )
     env.filters["gallery_img_src"] = gallery_img_src
     env.filters["gallery_link_href"] = gallery_link_href
+    env.filters["tojson"] = _tojson_filter
 
     site_path = DATA / "site.json"
     site = load_json(site_path) if site_path.is_file() else {"brand": "Properties"}

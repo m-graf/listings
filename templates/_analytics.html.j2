@@ -1,0 +1,77 @@
+{# Optional: set site.analytics in data/site.json — see README "Bootleg analytics" #}
+{% if site.analytics and site.analytics.form_action and site.analytics.fields %}
+<script>
+(function () {
+  var formAction = {{ site.analytics.form_action | tojson }};
+  var fieldIds = {{ site.analytics.fields | tojson }};
+  var slug = {% if property is defined %}{{ property.slug | tojson }}{% else %}"__index__"{% endif %};
+  var title = {% if property is defined %}{{ property.title | tojson }}{% else %}"Listings index"{% endif %};
+
+  var hasEntry = false;
+  for (var k in fieldIds) {
+    if (Object.prototype.hasOwnProperty.call(fieldIds, k) && fieldIds[k]) {
+      hasEntry = true;
+      break;
+    }
+  }
+  if (!hasEntry) return;
+
+  function payloadBlob() {
+    var lines = [];
+    lines.push("ts=" + new Date().toISOString());
+    lines.push("slug=" + slug);
+    lines.push("title=" + title);
+    lines.push("url=" + (typeof location !== "undefined" ? location.href : ""));
+    lines.push("ref=" + (typeof document !== "undefined" ? (document.referrer || "") : ""));
+    lines.push("vp=" + (window.innerWidth || 0) + "x" + (window.innerHeight || 0));
+    lines.push("sc=" + (window.screen ? screen.width : 0) + "x" + (window.screen ? screen.height : 0));
+    lines.push("dpr=" + (window.devicePixelRatio || 1));
+    lines.push("lang=" + (navigator.language || ""));
+    lines.push("tz=" + (Intl.DateTimeFormat().resolvedOptions().timeZone || ""));
+    lines.push("ua=" + (navigator.userAgent || "").slice(0, 500));
+    return lines.join("\n");
+  }
+
+  function send() {
+    var log = payloadBlob();
+    var params = new URLSearchParams();
+    for (var key in fieldIds) {
+      if (!Object.prototype.hasOwnProperty.call(fieldIds, key)) continue;
+      var entryId = fieldIds[key];
+      if (!entryId) continue;
+      var val = "";
+      if (key === "log" || key === "payload" || key === "detail" || key === "raw") val = log;
+      else if (key === "listing_slug" || key === "slug") val = slug;
+      else if (key === "listing_title" || key === "title") val = title;
+      else if (key === "page_url" || key === "url") val = typeof location !== "undefined" ? location.href : "";
+      else if (key === "referrer" || key === "ref") val = typeof document !== "undefined" ? (document.referrer || "") : "";
+      else val = log;
+      params.append(entryId, val);
+    }
+    var body = params.toString();
+    try {
+      if (navigator.sendBeacon) {
+        var blob = new Blob([body], { type: "application/x-www-form-urlencoded" });
+        if (navigator.sendBeacon(formAction, blob)) return;
+      }
+    } catch (e) {}
+    try {
+      fetch(formAction, {
+        method: "POST",
+        mode: "no-cors",
+        credentials: "omit",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body,
+        keepalive: true
+      });
+    } catch (e2) {}
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", send);
+  } else {
+    send();
+  }
+})();
+</script>
+{% endif %}

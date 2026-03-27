@@ -1,8 +1,6 @@
 # Property listing page blueprint
 
-Derived from structural analysis of **The Wings Group** property template (reference webarchive capture).
-
-This repo is a **clean-room layout**: same information architecture and BEM-style class names for familiarity, **not** a pixel copy of their WordPress theme, fonts, or assets.
+Field → section map for **Meadows Hale Listings** (`templates/property.html.j2`).
 
 ## Page regions (top → bottom)
 
