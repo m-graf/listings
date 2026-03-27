@@ -43,13 +43,20 @@
       "description": "Names only; matching broker name (trimmed) becomes in-page link",
       "items": { "type": "string" }
     },
+    "gallery_drive_url": {
+      "type": ["string", "null"],
+      "description": "Shared Google Drive folder or gallery link; shows Open gallery on Google Drive"
+    },
     "gallery_images": {
       "type": "array",
       "items": {
         "type": "object",
         "required": ["src"],
         "properties": {
-          "src": { "type": "string" },
+          "src": {
+            "type": "string",
+            "description": "Image URL or Google Drive file share link (Anyone with link can view)"
+          },
           "alt": { "type": "string" }
         }
       }

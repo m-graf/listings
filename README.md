@@ -59,4 +59,5 @@ python3 scripts/inspect_webarchive.py ~/Downloads/the-wings-group.webarchive -o 
 ## Notes
 
 - Remote images in sample JSON point at Wings / Unsplash URLs for demo only; host assets yourself for production.
+- **Google Drive:** Set `gallery_drive_url` to a shared folder (or gallery) link to show an “Open gallery on Google Drive” button. You can still list `gallery_images` with **file** share URLs (`drive.google.com/file/d/…`); the build uses Google’s thumbnail endpoint for `<img>`. Files must be shared **Anyone with the link** or thumbnails may not load.
 - Swiper/Fancybox from the original site are not included; the gallery is a responsive CSS grid with links to full images. You can add a lightbox library later.

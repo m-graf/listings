@@ -260,6 +260,13 @@ body.property-page {
   margin: 0 0 1rem;
   padding-top: 1.5rem;
 }
+.gallery-drive-cta {
+  margin: 0 0 1.25rem;
+}
+.gallery-drive-cta__link {
+  display: inline-block;
+  text-decoration: none;
+}
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
