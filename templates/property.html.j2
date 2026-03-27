@@ -29,8 +29,10 @@
         class="hero__image"
         src="{{ property.hero_image.src }}"
         alt="{{ property.hero_image.alt }}"
-        width="2400"
-        height="1350"
+        {% if property.hero_image.width and property.hero_image.height %}
+        width="{{ property.hero_image.width }}"
+        height="{{ property.hero_image.height }}"
+        {% endif %}
         fetchpriority="high"
         decoding="async">
     </div>
@@ -196,8 +198,25 @@
           <h2 id="helpful-links-heading" class="section-title">Helpful links</h2>
           <ul class="helpful-links__list">
             {% for link in property.helpful_links %}
+            {% set hl_heading = link.title | default(link.label | default('Link')) %}
+            {% set hl_action = link.link_text | default('Open in browser') %}
             <li class="helpful-links__item">
-              <a class="helpful-links__link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+              <div class="helpful-links__card">
+                {% if link.qr_src %}
+                <a class="helpful-links__qr-wrap" href="{{ link.href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ hl_heading }} — {{ hl_action }}">
+                  <img class="helpful-links__qr" src="{{ link.qr_src }}" alt="QR code: {{ hl_heading }}" width="176" height="176" loading="lazy" decoding="async">
+                </a>
+                {% endif %}
+                <div class="helpful-links__body">
+                  <h3 class="helpful-links__title">{{ hl_heading }}</h3>
+                  {% if link.description %}
+                  <p class="helpful-links__description">{{ link.description }}</p>
+                  {% endif %}
+                  <p class="helpful-links__action">
+                    <a class="helpful-links__link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer">{{ hl_action }}</a>
+                  </p>
+                </div>
+              </div>
             </li>
             {% endfor %}
           </ul>

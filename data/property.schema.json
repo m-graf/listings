@@ -16,7 +16,9 @@
       "required": ["src", "alt"],
       "properties": {
         "src": { "type": "string", "format": "uri" },
-        "alt": { "type": "string" }
+        "alt": { "type": "string" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" }
       }
     },
     "intro_paragraphs": { "type": "array", "items": { "type": "string" } },
@@ -81,13 +83,16 @@
     "map_embed_url": { "type": ["string", "null"] },
     "helpful_links": {
       "type": "array",
-      "description": "External links (e.g. directions, maps); opens in a new tab",
+      "description": "External links with optional title, description, link_text; build adds QR SVGs under static/qr/",
       "items": {
         "type": "object",
-        "required": ["label", "href"],
+        "required": ["href"],
         "properties": {
-          "label": { "type": "string" },
-          "href": { "type": "string" }
+          "href": { "type": "string" },
+          "title": { "type": "string", "description": "Card heading" },
+          "description": { "type": "string", "description": "Short paragraph under the title" },
+          "link_text": { "type": "string", "description": "Text for the text link (default: Open in browser)" },
+          "label": { "type": "string", "description": "Legacy: used as heading if title omitted" }
         }
       }
     },

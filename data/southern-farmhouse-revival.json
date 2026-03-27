@@ -6,8 +6,10 @@
   "price_label": "$1,500,000",
   "status": "Available",
   "hero_image": {
-    "src": "../static/photos/0.png",
-    "alt": "Southern Farmhouse Revival — hero"
+    "src": "../static/photos/0.jpg",
+    "alt": "Southern Farmhouse Revival — hero",
+    "width": 1920,
+    "height": 1383
   },
   "intro_paragraphs": [
     "Cloudland Pastures is a picturesque 101± acre working homestead on Lookout Mountain in northwest Georgia. The land unfolds across gently rolling pastureland framed by wooded edges that provide both privacy and natural beauty.",
@@ -82,19 +84,23 @@
   "map_embed_url": "https://id.land/maps/d05960d404d00306d98c8d42453569a4/embed",
   "helpful_links": [
     {
-      "label": "Click here for directions to the residence and viewing lot lines of the parcel.",
-      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=dcebf05ce824cd5d11f0f0777a0f67fa"
+      "title": "Parcel locator — directions & lot lines",
+      "description": "Scan the QR code on your phone to open the Meadows-Hale parcel map. Use it for driving directions to the residence and to see property boundaries while you are on site.",
+      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=dcebf05ce824cd5d11f0f0777a0f67fa",
+      "link_text": "Open parcel locator"
     },
     {
-      "label": "Interactive map of the property",
-      "href": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/share"
+      "title": "Land id® interactive map",
+      "description": "Scan to open the shared Land id map in your browser. Explore aerial imagery, terrain, and surrounding parcels to understand the property in context.",
+      "href": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/share",
+      "link_text": "Open interactive map"
     }
   ],
   "downloads": [
     {
       "title": "Maps & documents (Google Drive)",
       "href": "https://drive.google.com/drive/folders/1whiTx94AtW8nd5hGjTvDaDmVBGBUDnqC?usp=sharing",
-      "thumb": "../static/photos/0.png",
+      "thumb": "../static/photos/0.jpg",
       "thumb_alt": "Southern Farmhouse Revival — hero",
       "action_label": "Open folder"
     }
