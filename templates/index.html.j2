@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listings | {{ site.brand }}</title>
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body class="property-page">
+  <div class="inner" style="padding: 3rem 1.25rem;">
+    <h1 style="margin-top:0">{{ site.brand }}</h1>
+    <p class="property-header__location">Property listing pages</p>
+    <ul style="font-size:1.1rem;line-height:2">
+      {% for p in listings %}
+      <li><a href="{{ p.slug }}/index.html">{{ p.title }}</a> — {{ p.location }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

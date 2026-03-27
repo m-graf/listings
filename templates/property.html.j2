@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ property.title }} | {{ property.location }} | {{ site.brand }}</title>
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body class="property-page">
+{% macro executive_assistance_link(ea_name, brokers) -%}
+{%- set ns = namespace(matched=false, idx=0) -%}
+{%- for b in brokers -%}
+{%- if not ns.matched and (b.name | trim) == (ea_name | trim) -%}
+{%- set ns.matched = true -%}
+{%- set ns.idx = loop.index0 -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if ns.matched -%}
+<a class="executive-assistance__link" href="#broker-{{ ns.idx }}">{{ ea_name }}</a>
+{%- else -%}
+<span class="executive-assistance__name">{{ ea_name }}</span>
+{%- endif -%}
+{%- endmacro %}
+  <a class="skip-link" href="#facts">Skip to content</a>
+
+  <div class="hero">
+    <div class="hero__image-wrap">
+      <img
+        class="hero__image"
+        src="{{ property.hero_image.src }}"
+        alt="{{ property.hero_image.alt }}"
+        width="2400"
+        height="1350"
+        fetchpriority="high"
+        decoding="async">
+    </div>
+    <div class="hero__content">
+      <div class="hero__content-inner">
+        <div class="hero__title hero__title--hide-mobile">
+          <div class="page-title">
+            <h1 class="page-title__header page-title__header--lower">{{ property.title }}</h1>
+            <p class="page-title__subheader">{{ property.location }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner">
+    <article class="property">
+      <div class="row">
+        <header class="property-header">
+          <h1 class="property-header__title">{{ property.title }}</h1>
+          <p class="property-header__location">{{ property.location }}</p>
+          <ul class="property-header__meta meta">
+            {% if property.acres_label %}<li class="meta__acres">{{ property.acres_label }}</li>{% endif %}
+            {% if property.price_label %}<li class="meta__price">{{ property.price_label }}</li>{% endif %}
+            {% if property.status %}<li class="meta__status">{{ property.status }}</li>{% endif %}
+          </ul>
+        </header>
+      </div>
+
+      <nav class="property-nav property-nav--stuck" aria-label="Section navigation">
+        <div class="row">
+          <ul class="property-nav__items">
+            <li><a class="property-nav__link" href="#facts">Overview &amp; Facts</a></li>
+            {% if property.map_embed_url %}<li class="property-nav__maps"><a class="property-nav__link" href="#map">Interactive Map</a></li>{% endif %}
+            {% if property.downloads and property.downloads|length > 0 %}<li class="property-nav__downloads"><a class="property-nav__link" href="#downloads">Maps &amp; Downloads</a></li>{% endif %}
+            {% if property.detail_tabs and property.detail_tabs|length > 0 %}<li><a class="property-nav__link" href="#details">Property Details</a></li>{% endif %}
+          </ul>
+        </div>
+      </nav>
+
+      <div class="row">
+        <div class="property-intro{% if property.brokers and property.brokers|length > 1 %} property-intro--two-brokers{% endif %}">
+          <div class="property-intro__copy wysiwyg-pdc">
+            {% for p in property.intro_paragraphs %}
+            <p>{{ p }}</p>
+            {% endfor %}
+          </div>
+          {% if (property.brokers and property.brokers|length > 0) or (property.executive_assistance and property.executive_assistance|length > 0) %}
+          <div class="property-intro__sidebar">
+          {% if property.brokers and property.brokers|length > 0 %}
+          <div class="property-intro__brokers{% if property.brokers|length > 1 %} property-intro__brokers--multiple{% endif %}">
+            {% for b in property.brokers %}
+            <aside class="broker-card" id="broker-{{ loop.index0 }}">
+              <div class="broker-card__image">
+                <img src="{{ b.photo }}" alt="{{ b.name }}" width="500" height="647" loading="lazy" decoding="async">
+              </div>
+              <div class="broker-card__content">
+                <h3 class="broker-card__name">{{ b.name }}</h3>
+                <p class="broker-card__title">{{ b.title }}</p>
+                {% if b.about_url %}<p class="broker-card__item"><a href="{{ b.about_url }}">{{ b.about_label | default('About') }}</a></p>{% endif %}
+                {% if b.phone %}<p class="broker-card__item">(Cell) {{ b.phone }}</p>{% endif %}
+                <p class="broker-card__actions">
+                  {% if b.phone_tel %}<a class="button button--small" href="tel:{{ b.phone_tel }}">Call</a>{% endif %}
+                  {% if b.email %}<a class="button button--small button--brown" href="mailto:{{ b.email }}">Email</a>{% endif %}
+                </p>
+              </div>
+            </aside>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% if property.executive_assistance and property.executive_assistance|length > 0 %}
+          <section class="executive-assistance" aria-label="Executive assistance">
+            <h3 class="executive-assistance__title">Executive assistance</h3>
+            <ul class="executive-assistance__list">
+              {% for ea_name in property.executive_assistance %}
+              <li class="executive-assistance__item">{{ executive_assistance_link(ea_name, property.brokers or []) }}</li>
+              {% endfor %}
+            </ul>
+          </section>
+          {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if property.gallery_images and property.gallery_images|length > 0 %}
+      <div class="row">
+        <section class="property-overview-gallery" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading" class="section-title property-overview-gallery__title">Full Photo Gallery</h2>
+          <div class="gallery-grid">
+            {% for img in property.gallery_images %}
+            <a class="gallery-grid__cell" href="{{ img.src }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ img.src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+      {% endif %}
+
+      {% if property.brokers_comment %}
+      <div class="row">
+        <section class="property-comments wysiwyg-pdc">
+          <h3>Broker’s Comment</h3>
+          <p><em>“{{ property.brokers_comment }}”</em></p>
+        </section>
+      </div>
+      {% endif %}
+
+      <div class="property-facts" id="facts">
+        <div class="row">
+          <h2 class="section-title">Overview &amp; Facts</h2>
+          <ul class="property-facts__list">
+            {% for fact in property.facts %}
+            <li class="property-facts__item">{{ fact }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      {% if property.map_embed_url %}
+      <div class="row">
+        <div class="property-map" id="map">
+          <h2 class="section-title">Interactive Map</h2>
+          <div class="property-map__embed">
+            <iframe title="Property map" src="{{ property.map_embed_url }}" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if property.downloads and property.downloads|length > 0 %}
+      <div class="row">
+        <div class="property-downloads" id="downloads">
+          <h2 class="section-title">Maps &amp; Downloads</h2>
+          <ul class="property-downloads__list">
+            {% for d in property.downloads %}
+            <li>
+              <a class="download" href="{{ d.href }}" target="_blank" rel="noopener noreferrer">
+                {% if d.thumb %}
+                <div class="download__image-wrap">
+                  <img class="download__image" src="{{ d.thumb }}" alt="" width="500" height="386" loading="lazy">
+                </div>
+                {% endif %}
+                <h3 class="download__title">{{ d.title }}</h3>
+                <span class="download__button button">Download</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if property.detail_tabs and property.detail_tabs|length > 0 %}
+      <div class="row">
+        <div class="tabbed-details" id="details">
+          <h2 class="section-title">Property Details</h2>
+          {% for tab in property.detail_tabs %}
+          <details class="tabbed-details__block" {% if loop.first %}open{% endif %}>
+            <summary class="tabbed-details__summary">{{ tab.label }}</summary>
+            <div class="tabbed-details__body">
+              {% if tab.paragraphs %}
+                {% for p in tab.paragraphs %}<p>{{ p }}</p>{% endfor %}
+              {% endif %}
+              {% if tab.images and tab.images|length > 0 %}
+              <div class="tabbed-details__gallery">
+                {% for im in tab.images %}
+                <a href="{{ im.src }}" target="_blank" rel="noopener noreferrer" class="tabbed-details__gallery-link">
+                  <img src="{{ im.src }}" alt="{{ im.alt | default('') }}" loading="lazy">
+                </a>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </details>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    <div class="row">
+      <p><a href="{{ site.home_url }}">{{ site.brand }}</a></p>
+    </div>
+  </footer>
+</body>
+</html>

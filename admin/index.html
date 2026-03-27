@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit property</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem 1.25rem 3rem; max-width: 44rem; color: #111; }
+    h1 { font-size: 1.25rem; margin: 0 0 1rem; }
+    p.hint { color: #555; font-size: 0.9rem; margin: 0.25rem 0 1rem; }
+    label { display: block; font-weight: 600; font-size: 0.85rem; margin-top: 1rem; }
+    input[type="text"], input[type="url"], input[type="email"], textarea, select {
+      width: 100%; margin-top: 0.25rem; padding: 0.45rem 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px;
+    }
+    textarea { min-height: 5rem; font-family: inherit; }
+    textarea.tall { min-height: 10rem; }
+    textarea.code { font-family: ui-monospace, monospace; font-size: 0.85rem; }
+    .row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .row > * { flex: 1; min-width: 8rem; }
+    button {
+      margin-top: 1.25rem; margin-right: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer;
+      border-radius: 4px; border: 1px solid #333; background: #333; color: #fff;
+    }
+    button.secondary { background: #fff; color: #333; }
+    #msg { margin-top: 1rem; padding: 0.6rem; border-radius: 4px; display: none; }
+    #msg.ok { display: block; background: #e8f5e9; color: #1b5e20; }
+    #msg.err { display: block; background: #ffebee; color: #b71c1c; }
+    hr { margin: 1.5rem 0; border: none; border-top: 1px solid #ddd; }
+    fieldset { border: 1px solid #ddd; border-radius: 4px; padding: 0 1rem 1rem; margin-top: 1rem; }
+    legend { padding: 0 0.35rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Edit listing</h1>
+  <p class="hint">Pick a property or start new. Save writes <code>data/&lt;slug&gt;.json</code>. Then run <code>python build.py</code> for HTML.</p>
+
+  <label for="pick">Property</label>
+  <select id="pick">
+    <option value="">— New (empty form) —</option>
+  </select>
+
+  <hr>
+
+  <label for="slug">Slug (URL name)</label>
+  <input id="slug" type="text" placeholder="e.g. oak-ridge" autocomplete="off" spellcheck="false">
+  <p class="hint">Lowercase, hyphens only. Becomes the filename.</p>
+
+  <div class="row">
+    <div>
+      <label for="title">Title</label>
+      <input id="title" type="text">
+    </div>
+    <div>
+      <label for="location">Location line</label>
+      <input id="location" type="text" placeholder="City, ST">
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label for="acres_label">Acres (label)</label>
+      <input id="acres_label" type="text" placeholder="101± Acres">
+    </div>
+    <div>
+      <label for="price_label">Price (label)</label>
+      <input id="price_label" type="text" placeholder="$1,100,000">
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <input id="status" type="text" placeholder="Available">
+    </div>
+  </div>
+
+  <label for="hero_src">Hero image URL</label>
+  <input id="hero_src" type="url">
+
+  <label for="hero_alt">Hero image description</label>
+  <input id="hero_alt" type="text">
+
+  <label for="intro">Intro (paragraphs)</label>
+  <p class="hint">Blank line between paragraphs.</p>
+  <textarea id="intro" class="tall"></textarea>
+
+  <fieldset>
+    <legend>Broker (optional)</legend>
+    <label><input type="checkbox" id="has_broker"> Include broker card</label>
+    <label for="b_name">Name</label>
+    <input id="b_name" type="text">
+    <label for="b_title">Title</label>
+    <input id="b_title" type="text">
+    <label for="b_photo">Photo URL</label>
+    <input id="b_photo" type="url">
+    <div class="row">
+      <div>
+        <label for="b_phone">Phone (display)</label>
+        <input id="b_phone" type="text">
+      </div>
+      <div>
+        <label for="b_phone_tel">Phone (tel: link, e.g. +14235551212)</label>
+        <input id="b_phone_tel" type="text">
+      </div>
+    </div>
+    <label for="b_email">Email</label>
+    <input id="b_email" type="email">
+    <label for="b_about_url">About link URL</label>
+    <input id="b_about_url" type="url">
+    <label for="b_about_label">About link label</label>
+    <input id="b_about_label" type="text" placeholder="About">
+  </fieldset>
+
+  <fieldset>
+    <legend>Second broker (optional)</legend>
+    <label><input type="checkbox" id="has_broker2"> Include second broker</label>
+    <label for="b2_name">Name</label>
+    <input id="b2_name" type="text">
+    <label for="b2_title">Title</label>
+    <input id="b2_title" type="text">
+    <label for="b2_photo">Photo URL</label>
+    <input id="b2_photo" type="url">
+    <div class="row">
+      <div>
+        <label for="b2_phone">Phone (display)</label>
+        <input id="b2_phone" type="text">
+      </div>
+      <div>
+        <label for="b2_phone_tel">Phone (tel: link)</label>
+        <input id="b2_phone_tel" type="text">
+      </div>
+    </div>
+    <label for="b2_email">Email</label>
+    <input id="b2_email" type="email">
+    <label for="b2_about_url">About link URL</label>
+    <input id="b2_about_url" type="url">
+    <label for="b2_about_label">About link label</label>
+    <input id="b2_about_label" type="text" placeholder="About">
+  </fieldset>
+
+  <label for="b_comment">Broker comment (optional)</label>
+  <textarea id="b_comment" rows="3"></textarea>
+
+  <label for="exec_assist">Executive assistance (optional)</label>
+  <p class="hint">One name per line. If a name matches a broker’s name exactly, it links to that broker card.</p>
+  <textarea id="exec_assist" rows="3" placeholder="Pat Smith"></textarea>
+
+  <label for="gallery">Gallery image URLs</label>
+  <p class="hint">One per line. Optional: <code>https://… | Alt text</code></p>
+  <textarea id="gallery" class="tall"></textarea>
+
+  <label for="facts">Facts (bullet list)</label>
+  <p class="hint">One line per bullet.</p>
+  <textarea id="facts" class="tall"></textarea>
+
+  <label for="map_url">Map embed URL (optional)</label>
+  <input id="map_url" type="url" placeholder="iframe src">
+
+  <label for="downloads_json">Downloads (JSON array)</label>
+  <p class="hint">Example: <code>[{"title":"Map","href":"https://…","thumb":"https://…"}]</code></p>
+  <textarea id="downloads_json" class="code tall" spellcheck="false"></textarea>
+
+  <label for="tabs_json">Detail tabs (JSON array)</label>
+  <p class="hint">Example: <code>[{"label":"Location","paragraphs":["…"],"images":[{"src":"…","alt":""}]}]</code></p>
+  <textarea id="tabs_json" class="code tall" spellcheck="false"></textarea>
+
+  <button type="button" id="btnSave">Save</button>
+  <button type="button" id="btnReload" class="secondary">Reload from disk</button>
+
+  <div id="msg"></div>
+
+  <script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+
+  function showMsg(text, ok) {
+    const el = $("msg");
+    el.textContent = text;
+    el.className = ok ? "ok" : "err";
+  }
+
+  function splitParagraphs(s) {
+    return s.split(/\n\s*\n/).map(function (p) { return p.trim(); }).filter(Boolean);
+  }
+
+  function splitLines(s) {
+    return s.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+  }
+
+  function parseGallery(s) {
+    return splitLines(s).map(function (line) {
+      var parts = line.split("|");
+      var src = parts[0].trim();
+      var alt = parts.length > 1 ? parts.slice(1).join("|").trim() : "";
+      return { src: src, alt: alt };
+    });
+  }
+
+  function propertyToForm(data) {
+    $("slug").value = data.slug || "";
+    $("title").value = data.title || "";
+    $("location").value = data.location || "";
+    $("acres_label").value = data.acres_label || "";
+    $("price_label").value = data.price_label || "";
+    $("status").value = data.status || "";
+    $("hero_src").value = (data.hero_image && data.hero_image.src) || "";
+    $("hero_alt").value = (data.hero_image && data.hero_image.alt) || "";
+    $("intro").value = (data.intro_paragraphs || []).join("\n\n");
+    var brokers = data.brokers || [];
+    var b = brokers[0];
+    $("has_broker").checked = !!(b && b.name);
+    $("b_name").value = (b && b.name) || "";
+    $("b_title").value = (b && b.title) || "";
+    $("b_photo").value = (b && b.photo) || "";
+    $("b_phone").value = (b && b.phone) || "";
+    $("b_phone_tel").value = (b && b.phone_tel) || "";
+    $("b_email").value = (b && b.email) || "";
+    $("b_about_url").value = (b && b.about_url) || "";
+    $("b_about_label").value = (b && b.about_label) || "";
+    var b2 = brokers[1];
+    $("has_broker2").checked = !!(b2 && b2.name);
+    $("b2_name").value = (b2 && b2.name) || "";
+    $("b2_title").value = (b2 && b2.title) || "";
+    $("b2_photo").value = (b2 && b2.photo) || "";
+    $("b2_phone").value = (b2 && b2.phone) || "";
+    $("b2_phone_tel").value = (b2 && b2.phone_tel) || "";
+    $("b2_email").value = (b2 && b2.email) || "";
+    $("b2_about_url").value = (b2 && b2.about_url) || "";
+    $("b2_about_label").value = (b2 && b2.about_label) || "";
+    $("b_comment").value = data.brokers_comment || "";
+    $("exec_assist").value = (data.executive_assistance || []).join("\n");
+    $("gallery").value = (data.gallery_images || []).map(function (g) {
+      return g.alt ? g.src + " | " + g.alt : g.src;
+    }).join("\n");
+    $("facts").value = (data.facts || []).join("\n");
+    $("map_url").value = data.map_embed_url || "";
+    $("downloads_json").value = JSON.stringify(data.downloads || [], null, 2);
+    $("tabs_json").value = JSON.stringify(data.detail_tabs || [], null, 2);
+  }
+
+  function formToProperty() {
+    var slug = $("slug").value.trim();
+    var downloads;
+    var tabs;
+    try {
+      downloads = JSON.parse($("downloads_json").value || "[]");
+    } catch (e) {
+      throw new Error("Downloads JSON: " + e.message);
+    }
+    try {
+      tabs = JSON.parse($("tabs_json").value || "[]");
+    } catch (e) {
+      throw new Error("Detail tabs JSON: " + e.message);
+    }
+    if (!Array.isArray(downloads)) throw new Error("Downloads must be a JSON array");
+    if (!Array.isArray(tabs)) throw new Error("Detail tabs must be a JSON array");
+
+    var brokers = [];
+    if ($("has_broker").checked && $("b_name").value.trim()) {
+      brokers.push({
+        name: $("b_name").value.trim(),
+        title: $("b_title").value.trim(),
+        photo: $("b_photo").value.trim(),
+        phone: $("b_phone").value.trim() || undefined,
+        phone_tel: $("b_phone_tel").value.trim() || undefined,
+        email: $("b_email").value.trim() || undefined,
+        about_url: $("b_about_url").value.trim() || undefined,
+        about_label: $("b_about_label").value.trim() || undefined
+      });
+    }
+    if ($("has_broker2").checked && $("b2_name").value.trim()) {
+      brokers.push({
+        name: $("b2_name").value.trim(),
+        title: $("b2_title").value.trim(),
+        photo: $("b2_photo").value.trim(),
+        phone: $("b2_phone").value.trim() || undefined,
+        phone_tel: $("b2_phone_tel").value.trim() || undefined,
+        email: $("b2_email").value.trim() || undefined,
+        about_url: $("b2_about_url").value.trim() || undefined,
+        about_label: $("b2_about_label").value.trim() || undefined
+      });
+    }
+
+    var comment = $("b_comment").value.trim();
+    var execAssist = splitLines($("exec_assist").value);
+    return {
+      slug: slug,
+      title: $("title").value.trim(),
+      location: $("location").value.trim(),
+      acres_label: $("acres_label").value.trim() || undefined,
+      price_label: $("price_label").value.trim() || undefined,
+      status: $("status").value.trim() || undefined,
+      hero_image: {
+        src: $("hero_src").value.trim(),
+        alt: $("hero_alt").value.trim()
+      },
+      intro_paragraphs: splitParagraphs($("intro").value),
+      brokers: brokers,
+      brokers_comment: comment ? comment : null,
+      executive_assistance: execAssist.length ? execAssist : [],
+      gallery_images: parseGallery($("gallery").value),
+      facts: splitLines($("facts").value),
+      map_embed_url: $("map_url").value.trim() || null,
+      downloads: downloads,
+      detail_tabs: tabs
+    };
+  }
+
+  function loadList() {
+    return fetch("/api/list").then(function (r) { return r.json(); });
+  }
+
+  function loadProperty(slug) {
+    return fetch("/api/property?slug=" + encodeURIComponent(slug)).then(function (r) {
+      if (!r.ok) throw new Error("Load failed");
+      return r.json();
+    });
+  }
+
+  $("pick").addEventListener("change", function () {
+    var slug = $("pick").value;
+    if (!slug) {
+      propertyToForm({ slug: "", intro_paragraphs: [], facts: [], gallery_images: [], brokers: [], executive_assistance: [], downloads: [], detail_tabs: [], hero_image: { src: "", alt: "" }, brokers_comment: null, map_embed_url: null });
+      $("exec_assist").value = "";
+      $("downloads_json").value = "[]";
+      $("tabs_json").value = "[]";
+      $("msg").className = "";
+      return;
+    }
+    loadProperty(slug).then(propertyToForm).catch(function () {
+      showMsg("Could not load property.", false);
+    });
+  });
+
+  $("btnReload").addEventListener("click", function () {
+    var slug = $("pick").value || $("slug").value.trim();
+    if (!slug) {
+      showMsg("Pick a property or enter a slug first.", false);
+      return;
+    }
+    loadProperty(slug).then(function (d) {
+      propertyToForm(d);
+      showMsg("Reloaded.", true);
+    }).catch(function () {
+      showMsg("Could not reload.", false);
+    });
+  });
+
+  $("btnSave").addEventListener("click", function () {
+    $("msg").className = "";
+    var data;
+    try {
+      data = formToProperty();
+    } catch (e) {
+      showMsg(e.message, false);
+      return;
+    }
+    if (!data.slug) {
+      showMsg("Slug is required.", false);
+      return;
+    }
+    if (!data.hero_image.src) {
+      showMsg("Hero image URL is required.", false);
+      return;
+    }
+
+    fetch("/api/property", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) {
+        if (x.ok && x.j.ok) {
+          showMsg("Saved. Run: python build.py", true);
+          return loadList();
+        }
+        showMsg(x.j.error || "Save failed", false);
+      })
+      .then(function (items) {
+        if (!items) return;
+        var sel = $("pick");
+        var cur = $("slug").value.trim();
+        sel.innerHTML = '<option value="">— New (empty form) —</option>';
+        items.forEach(function (it) {
+          var opt = document.createElement("option");
+          opt.value = it.slug;
+          opt.textContent = it.title + " (" + it.slug + ")";
+          sel.appendChild(opt);
+        });
+        sel.value = cur;
+      })
+      .catch(function () {
+        showMsg("Network error.", false);
+      });
+  });
+
+  loadList().then(function (items) {
+    var sel = $("pick");
+    items.forEach(function (it) {
+      var opt = document.createElement("option");
+      opt.value = it.slug;
+      opt.textContent = it.title + " (" + it.slug + ")";
+      sel.appendChild(opt);
+    });
+  });
+})();
+  </script>
+</body>
+</html>

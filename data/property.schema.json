@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/property.schema.json",
+  "title": "Property listing",
+  "type": "object",
+  "required": ["slug", "title", "location", "hero_image", "intro_paragraphs", "facts"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string" },
+    "location": { "type": "string" },
+    "acres_label": { "type": "string" },
+    "price_label": { "type": "string" },
+    "status": { "type": "string" },
+    "hero_image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "properties": {
+        "src": { "type": "string", "format": "uri" },
+        "alt": { "type": "string" }
+      }
+    },
+    "intro_paragraphs": { "type": "array", "items": { "type": "string" } },
+    "brokers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "title", "photo"],
+        "properties": {
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "photo": { "type": "string" },
+          "about_url": { "type": "string" },
+          "about_label": { "type": "string" },
+          "phone": { "type": "string" },
+          "phone_tel": { "type": "string" },
+          "email": { "type": "string", "format": "email" }
+        }
+      }
+    },
+    "brokers_comment": { "type": ["string", "null"] },
+    "executive_assistance": {
+      "type": "array",
+      "description": "Names only; matching broker name (trimmed) becomes in-page link",
+      "items": { "type": "string" }
+    },
+    "gallery_images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["src"],
+        "properties": {
+          "src": { "type": "string" },
+          "alt": { "type": "string" }
+        }
+      }
+    },
+    "facts": { "type": "array", "items": { "type": "string" } },
+    "map_embed_url": { "type": ["string", "null"] },
+    "downloads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "href"],
+        "properties": {
+          "title": { "type": "string" },
+          "href": { "type": "string" },
+          "thumb": { "type": "string" }
+        }
+      }
+    },
+    "detail_tabs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label"],
+        "properties": {
+          "label": { "type": "string" },
+          "paragraphs": { "type": "array", "items": { "type": "string" } },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["src"],
+              "properties": {
+                "src": { "type": "string" },
+                "alt": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
