@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import re
 import shutil
 import sys
 from pathlib import Path
@@ -12,42 +11,6 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = Path(__file__).resolve().parent
-
-# Google Drive file share URLs → thumbnail for <img>; link href uses /file/d/ID/view
-_DRIVE_FILE_PATH = re.compile(
-    r"drive\.google\.com/file/d/([a-zA-Z0-9_-]+)",
-    re.IGNORECASE,
-)
-_DRIVE_OPEN_ID = re.compile(r"[?&]id=([a-zA-Z0-9_-]+)", re.IGNORECASE)
-
-
-def extract_drive_file_id(url: str) -> str | None:
-    if not url or "drive.google.com" not in url.lower():
-        return None
-    m = _DRIVE_FILE_PATH.search(url)
-    if m:
-        return m.group(1)
-    if "/file/d/" not in url.lower():
-        m = _DRIVE_OPEN_ID.search(url)
-        if m:
-            return m.group(1)
-    return None
-
-
-def gallery_img_src(url: str) -> str:
-    fid = extract_drive_file_id(url)
-    if fid:
-        return f"https://drive.google.com/thumbnail?id={fid}&sz=w2000"
-    return url
-
-
-def gallery_link_href(url: str) -> str:
-    fid = extract_drive_file_id(url)
-    if fid:
-        return f"https://drive.google.com/file/d/{fid}/view"
-    return url
-
-
 TEMPLATES = ROOT / "templates"
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
@@ -67,8 +30,6 @@ def main() -> int:
         loader=FileSystemLoader(TEMPLATES),
         autoescape=select_autoescape(["html", "xml", "j2"]),
     )
-    env.filters["gallery_img_src"] = gallery_img_src
-    env.filters["gallery_link_href"] = gallery_link_href
 
     site_path = DATA / "site.json"
     site = load_json(site_path) if site_path.is_file() else {"brand": "Properties"}

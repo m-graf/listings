@@ -116,24 +116,17 @@
         </div>
       </div>
 
-      {% if (property.gallery_images and property.gallery_images|length > 0) or property.gallery_drive_url %}
+      {% if property.gallery_images and property.gallery_images|length > 0 %}
       <div class="row">
         <section class="property-overview-gallery" aria-labelledby="gallery-heading">
           <h2 id="gallery-heading" class="section-title property-overview-gallery__title">Full Photo Gallery</h2>
-          {% if property.gallery_drive_url %}
-          <p class="gallery-drive-cta">
-            <a class="button gallery-drive-cta__link" href="{{ property.gallery_drive_url }}" target="_blank" rel="noopener noreferrer">Open gallery on Google Drive</a>
-          </p>
-          {% endif %}
-          {% if property.gallery_images and property.gallery_images|length > 0 %}
           <div class="gallery-grid">
             {% for img in property.gallery_images %}
-            <a class="gallery-grid__cell" href="{{ img.src | gallery_link_href }}" target="_blank" rel="noopener noreferrer">
-              <img src="{{ img.src | gallery_img_src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
+            <a class="gallery-grid__cell" href="{{ img.src }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ img.src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
             </a>
             {% endfor %}
           </div>
-          {% endif %}
         </section>
       </div>
       {% endif %}

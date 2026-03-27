@@ -14,7 +14,7 @@ This repo is a **clean-room layout**: same information architecture and BEM-styl
 | 3 | Sticky section nav | `.property-nav` anchors | `#facts`, `#map`, `#downloads`, `#details` (conditional) |
 | 4 | Intro + broker(s) | `.property-intro`, `.property-intro__sidebar`, `.broker-card` (photo \| info side-by-side; two brokers side-by-side when `brokers.length > 1`) | `intro_paragraphs[]`, `brokers[]` (up to two in the editor UI; template allows more) |
 | 4b | Executive assistance (optional) | `.executive-assistance` under sidebar | `executive_assistance[]` — strings; same text as a broker `name` (after trim) renders as `#broker-N` link |
-| 5 | Photo gallery | `.property-overview-gallery` | `gallery_drive_url` (optional shared Drive folder/link), `gallery_images[]`. Drive **file** URLs in `src` are rewritten at build time for thumbnails (`build.py` filters). |
+| 5 | Photo gallery | `.property-overview-gallery` | `gallery_images[]` |
 | 6 | Broker comment (optional) | `.property-comments` | `brokers_comment` |
 | 7 | Overview & facts | `#facts`, `.property-facts__list` | `facts[]` |
 | 8 | Map (optional) | `#map`, `.property-map__embed iframe` | `map_embed_url` |
