@@ -92,7 +92,14 @@ class Handler(BaseHTTPRequestHandler):
             if p.is_file():
                 self._json(json.loads(p.read_text(encoding="utf-8")))
             else:
-                self._json({"brand": "Property Co", "home_url": "../index.html"})
+                self._json(
+                    {
+                        "brand": "Meadows-Hale",
+                        "home_url": "https://www.meadows-hale.com",
+                        "footer_label": "www.meadows-hale.com",
+                        "properties_index_url": "../index.html",
+                    }
+                )
             return
 
         if path.startswith("/api/property"):

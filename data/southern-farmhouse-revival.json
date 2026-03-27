@@ -6,8 +6,8 @@
   "price_label": "$1,500,000",
   "status": "Available",
   "hero_image": {
-    "src": "http://127.0.0.1:8766/assets/hero-image.png",
-    "alt": "southern-farmhouse-revival-front-view"
+    "src": "../static/photos/0.png",
+    "alt": "Southern Farmhouse Revival — hero"
   },
   "intro_paragraphs": [
     "Cloudland Pastures is a picturesque 101± acre working homestead on Lookout Mountain in northwest Georgia. The land unfolds across gently rolling pastureland framed by wooded edges that provide both privacy and natural beauty.",
@@ -18,53 +18,58 @@
     {
       "name": "Jon Hale",
       "title": "Broker",
-      "photo": "https://www.wingsgroupllc.com/wp-content/uploads/2022/05/Elliott_Davenport-500x647.jpg",
+      "photo": "../static/brokers/jon.jpg",
       "phone": "706-580-6545",
-      "phone_tel": "+7065806545",
-      "email": "jon@meadows-hale.com",
-      "about_url": "https://www.wingsgroupllc.com/about-us/#elliott-davenport,-jr",
-      "about_label": "About Jon"
+      "phone_tel": "+17065806545",
+      "email": "jon@meadows-hale.com"
     },
     {
       "name": "Julie G'vitale",
       "title": "Broker (Georgia & Florida)",
-      "photo": "https://www.wingsgroupllc.com/wp-content/uploads/2022/05/Elliott_Davenport-500x647.jpg",
+      "photo": "../static/brokers/julie.jpg",
       "phone": "708-810-3581",
-      "phone_tel": "+7088103581",
-      "email": "julie@meadows-hale.com",
-      "about_url": "https://www.wingsgroupllc.com/about-us/#elliott-davenport,-jr",
-      "about_label": "About Julie"
+      "phone_tel": "+17088103581",
+      "email": "julie@meadows-hale.com"
     }
   ],
   "brokers_comment": "With rolling pastures, three ponds, and a hilltop farmhouse, Cloudland Pastures is a versatile mountain property that’s immediately usable and well located near Mentone, Chattanooga, and McLemore.",
   "executive_assistance": [
-    "Taylor Short (taylor@meadows-hale.com, +1 (256) 487-1387"
+    {
+      "name": "Taylor Short",
+      "title": "Executive Assistant",
+      "email": "taylor@meadows-hale.com",
+      "phone": "(256) 487-1387",
+      "phone_tel": "+12564871387"
+    }
   ],
   "gallery_images": [
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1002.jpg",
-      "alt": "Pasture view"
-    },
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1003.jpg",
-      "alt": "Pond"
-    },
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1004.jpg",
-      "alt": "Barn"
-    },
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1005.jpg",
-      "alt": "Fields"
-    },
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1006.jpg",
-      "alt": "Homestead"
-    },
-    {
-      "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/CLP-1007.jpg",
-      "alt": "Fence line"
-    }
+    { "src": "../static/photos/1.jpeg", "alt": "Southern Farmhouse Revival — 1" },
+    { "src": "../static/photos/10a.jpeg", "alt": "Southern Farmhouse Revival — 10a" },
+    { "src": "../static/photos/11a.jpeg", "alt": "Southern Farmhouse Revival — 11a" },
+    { "src": "../static/photos/11ab.jpeg", "alt": "Southern Farmhouse Revival — 11ab" },
+    { "src": "../static/photos/12a.jpeg", "alt": "Southern Farmhouse Revival — 12a" },
+    { "src": "../static/photos/13ab.jpeg", "alt": "Southern Farmhouse Revival — 13ab" },
+    { "src": "../static/photos/14a.jpeg", "alt": "Southern Farmhouse Revival — 14a" },
+    { "src": "../static/photos/15a.jpeg", "alt": "Southern Farmhouse Revival — 15a" },
+    { "src": "../static/photos/16a.jpeg", "alt": "Southern Farmhouse Revival — 16a" },
+    { "src": "../static/photos/17a.jpeg", "alt": "Southern Farmhouse Revival — 17a" },
+    { "src": "../static/photos/18a.jpeg", "alt": "Southern Farmhouse Revival — 18a" },
+    { "src": "../static/photos/19a.jpeg", "alt": "Southern Farmhouse Revival — 19a" },
+    { "src": "../static/photos/20a.jpeg", "alt": "Southern Farmhouse Revival — 20a" },
+    { "src": "../static/photos/21a.jpeg", "alt": "Southern Farmhouse Revival — 21a" },
+    { "src": "../static/photos/21ab.jpeg", "alt": "Southern Farmhouse Revival — 21ab" },
+    { "src": "../static/photos/22a.jpeg", "alt": "Southern Farmhouse Revival — 22a" },
+    { "src": "../static/photos/23a.jpeg", "alt": "Southern Farmhouse Revival — 23a" },
+    { "src": "../static/photos/24a.jpeg", "alt": "Southern Farmhouse Revival — 24a" },
+    { "src": "../static/photos/26a.jpeg", "alt": "Southern Farmhouse Revival — 26a" },
+    { "src": "../static/photos/2a.jpeg", "alt": "Southern Farmhouse Revival — 2a" },
+    { "src": "../static/photos/3a.jpeg", "alt": "Southern Farmhouse Revival — 3a" },
+    { "src": "../static/photos/4a.jpeg", "alt": "Southern Farmhouse Revival — 4a" },
+    { "src": "../static/photos/6a.jpeg", "alt": "Southern Farmhouse Revival — 6a" },
+    { "src": "../static/photos/6ab.jpeg", "alt": "Southern Farmhouse Revival — 6ab" },
+    { "src": "../static/photos/7a.jpeg", "alt": "Southern Farmhouse Revival — 7a" },
+    { "src": "../static/photos/8a.jpeg", "alt": "Southern Farmhouse Revival — 8a" },
+    { "src": "../static/photos/9a.jpeg", "alt": "Southern Farmhouse Revival — 9a" }
   ],
   "facts": [
     "Picturesque 101± acre working homestead in northwest Georgia, well-suited for horses or cattle, small-scale agriculture, or recreational use",
@@ -75,11 +80,23 @@
     "Barn measuring approximately 120 ft x 125 ft with both open and enclosed storage and working pens for livestock"
   ],
   "map_embed_url": "https://id.land/maps/d05960d404d00306d98c8d42453569a4/embed",
+  "helpful_links": [
+    {
+      "label": "Click here for directions to the residence and viewing lot lines of the parcel.",
+      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=dcebf05ce824cd5d11f0f0777a0f67fa"
+    },
+    {
+      "label": "Interactive map of the property",
+      "href": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/share"
+    }
+  ],
   "downloads": [
     {
-      "title": "Map Package - Cloudland Pastures",
-      "href": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/Map-Package-CP.pdf",
-      "thumb": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/Map-Package-CP-pdf.jpg"
+      "title": "Maps & documents (Google Drive)",
+      "href": "https://drive.google.com/drive/folders/1whiTx94AtW8nd5hGjTvDaDmVBGBUDnqC?usp=sharing",
+      "thumb": "../static/photos/0.png",
+      "thumb_alt": "Southern Farmhouse Revival — hero",
+      "action_label": "Open folder"
     }
   ],
   "detail_tabs": [

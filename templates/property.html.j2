@@ -65,6 +65,7 @@
           <ul class="property-nav__items">
             <li><a class="property-nav__link" href="#facts">Overview &amp; Facts</a></li>
             {% if property.map_embed_url %}<li class="property-nav__maps"><a class="property-nav__link" href="#map">Interactive Map</a></li>{% endif %}
+            {% if property.helpful_links and property.helpful_links|length > 0 %}<li><a class="property-nav__link" href="#helpful-links">Helpful links</a></li>{% endif %}
             {% if property.downloads and property.downloads|length > 0 %}<li class="property-nav__downloads"><a class="property-nav__link" href="#downloads">Maps &amp; Downloads</a></li>{% endif %}
             {% if property.detail_tabs and property.detail_tabs|length > 0 %}<li><a class="property-nav__link" href="#details">Property Details</a></li>{% endif %}
           </ul>
@@ -85,7 +86,7 @@
             {% for b in property.brokers %}
             <aside class="broker-card" id="broker-{{ loop.index0 }}">
               <div class="broker-card__image">
-                <img src="{{ b.photo }}" alt="{{ b.name }}" width="500" height="647" loading="lazy" decoding="async">
+                <img src="{{ b.photo | gallery_img_src }}" alt="{{ b.name }}" width="320" height="400" loading="lazy" decoding="async">
               </div>
               <div class="broker-card__content">
                 <h3 class="broker-card__name">{{ b.name }}</h3>
@@ -105,8 +106,28 @@
           <section class="executive-assistance" aria-label="Executive assistance">
             <h3 class="executive-assistance__title">Executive assistance</h3>
             <ul class="executive-assistance__list">
-              {% for ea_name in property.executive_assistance %}
-              <li class="executive-assistance__item">{{ executive_assistance_link(ea_name, property.brokers or []) }}</li>
+              {% for ea in property.executive_assistance %}
+              <li class="executive-assistance__item">
+                {% if ea.name is defined and ea.name %}
+                <div class="executive-assistance__entry">
+                  <span class="executive-assistance__line">
+                    {{ executive_assistance_link(ea.name, property.brokers or []) }}
+                    {% if ea.title %}<span class="executive-assistance__role"> — {{ ea.title }}</span>{% endif %}
+                  </span>
+                  {% if ea.phone or ea.email %}
+                  <span class="executive-assistance__contact">
+                    {% if ea.phone %}
+                    {% if ea.phone_tel %}<a class="executive-assistance__contact-link" href="tel:{{ ea.phone_tel }}">{{ ea.phone }}</a>{% else %}<span>{{ ea.phone }}</span>{% endif %}
+                    {% endif %}
+                    {% if ea.phone and ea.email %}<span class="executive-assistance__sep"> · </span>{% endif %}
+                    {% if ea.email %}<a class="executive-assistance__contact-link" href="mailto:{{ ea.email }}">{{ ea.email }}</a>{% endif %}
+                  </span>
+                  {% endif %}
+                </div>
+                {% else %}
+                {{ executive_assistance_link(ea, property.brokers or []) }}
+                {% endif %}
+              </li>
               {% endfor %}
             </ul>
           </section>
@@ -116,17 +137,24 @@
         </div>
       </div>
 
-      {% if property.gallery_images and property.gallery_images|length > 0 %}
+      {% if (property.gallery_images and property.gallery_images|length > 0) or property.gallery_drive_url %}
       <div class="row">
         <section class="property-overview-gallery" aria-labelledby="gallery-heading">
           <h2 id="gallery-heading" class="section-title property-overview-gallery__title">Full Photo Gallery</h2>
+          {% if property.gallery_drive_url %}
+          <p class="gallery-drive-cta">
+            <a class="button gallery-drive-cta__link" href="{{ property.gallery_drive_url }}" target="_blank" rel="noopener noreferrer">Open gallery on Google Drive</a>
+          </p>
+          {% endif %}
+          {% if property.gallery_images and property.gallery_images|length > 0 %}
           <div class="gallery-grid">
             {% for img in property.gallery_images %}
-            <a class="gallery-grid__cell" href="{{ img.src }}" target="_blank" rel="noopener noreferrer">
-              <img src="{{ img.src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
+            <a class="gallery-grid__cell" href="{{ img.src | gallery_link_href }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ img.src | gallery_img_src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
             </a>
             {% endfor %}
           </div>
+          {% endif %}
         </section>
       </div>
       {% endif %}
@@ -162,6 +190,21 @@
       </div>
       {% endif %}
 
+      {% if property.helpful_links and property.helpful_links|length > 0 %}
+      <div class="row">
+        <section class="helpful-links" id="helpful-links" aria-labelledby="helpful-links-heading">
+          <h2 id="helpful-links-heading" class="section-title">Helpful links</h2>
+          <ul class="helpful-links__list">
+            {% for link in property.helpful_links %}
+            <li class="helpful-links__item">
+              <a class="helpful-links__link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </section>
+      </div>
+      {% endif %}
+
       {% if property.downloads and property.downloads|length > 0 %}
       <div class="row">
         <div class="property-downloads" id="downloads">
@@ -172,11 +215,11 @@
               <a class="download" href="{{ d.href }}" target="_blank" rel="noopener noreferrer">
                 {% if d.thumb %}
                 <div class="download__image-wrap">
-                  <img class="download__image" src="{{ d.thumb }}" alt="" width="500" height="386" loading="lazy">
+                  <img class="download__image" src="{{ d.thumb | gallery_img_src }}" alt="{{ d.thumb_alt | default('') }}" width="500" height="386" loading="lazy">
                 </div>
                 {% endif %}
                 <h3 class="download__title">{{ d.title }}</h3>
-                <span class="download__button button">Download</span>
+                <span class="download__button button">{{ d.action_label | default('Download') }}</span>
               </a>
             </li>
             {% endfor %}
@@ -216,7 +259,7 @@
 
   <footer class="site-footer">
     <div class="row">
-      <p><a href="{{ site.home_url }}">{{ site.brand }}</a></p>
+      <p><a href="{{ site.home_url }}" rel="noopener noreferrer">{{ site.footer_label | default(site.brand) }}</a></p>
     </div>
   </footer>
 </body>

@@ -140,11 +140,15 @@
   <textarea id="b_comment" rows="3"></textarea>
 
   <label for="exec_assist">Executive assistance (optional)</label>
-  <p class="hint">One name per line. If a name matches a broker’s name exactly, it links to that broker card.</p>
-  <textarea id="exec_assist" rows="3" placeholder="Pat Smith"></textarea>
+  <p class="hint">One entry per line: a plain name (links to a broker card if it matches), or a single-line JSON object for name + contact, e.g. <code>{"name":"Taylor Short","title":"Executive Assistant","email":"…","phone":"(256) 487-1387","phone_tel":"+12564871387"}</code></p>
+  <textarea id="exec_assist" rows="4" class="code" spellcheck="false" placeholder="Pat Smith"></textarea>
 
-  <label for="gallery">Gallery image URLs</label>
-  <p class="hint">One per line. Optional: <code>https://… | Alt text</code></p>
+  <label for="gallery_drive_url">Google Drive gallery (optional)</label>
+  <p class="hint">Folder or shared-drive link visitors use to open the full set of photos.</p>
+  <input id="gallery_drive_url" type="url" placeholder="https://drive.google.com/drive/folders/…">
+
+  <label for="gallery">Gallery image URLs (optional)</label>
+  <p class="hint">One per line. Optional: <code>https://… | Alt text</code>. Google Drive <strong>file</strong> share links work if the file is shared as “Anyone with the link.”</p>
   <textarea id="gallery" class="tall"></textarea>
 
   <label for="facts">Facts (bullet list)</label>
@@ -183,6 +187,26 @@
 
   function splitLines(s) {
     return s.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+  }
+
+  function executiveAssistanceToText(arr) {
+    if (!arr || !arr.length) return "";
+    return arr.map(function (item) {
+      if (typeof item === "string") return item;
+      if (item && typeof item === "object") return JSON.stringify(item);
+      return String(item);
+    }).join("\n");
+  }
+
+  function parseExecutiveAssistance(s) {
+    return splitLines(s).map(function (line) {
+      if (line.charAt(0) !== "{") return line;
+      try {
+        var o = JSON.parse(line);
+        if (o && typeof o === "object" && !Array.isArray(o)) return o;
+      } catch (e) { /* keep as plain string */ }
+      return line;
+    });
   }
 
   function parseGallery(s) {
@@ -226,7 +250,8 @@
     $("b2_about_url").value = (b2 && b2.about_url) || "";
     $("b2_about_label").value = (b2 && b2.about_label) || "";
     $("b_comment").value = data.brokers_comment || "";
-    $("exec_assist").value = (data.executive_assistance || []).join("\n");
+    $("exec_assist").value = executiveAssistanceToText(data.executive_assistance || []);
+    $("gallery_drive_url").value = data.gallery_drive_url || "";
     $("gallery").value = (data.gallery_images || []).map(function (g) {
       return g.alt ? g.src + " | " + g.alt : g.src;
     }).join("\n");
@@ -280,7 +305,7 @@
     }
 
     var comment = $("b_comment").value.trim();
-    var execAssist = splitLines($("exec_assist").value);
+    var execAssist = parseExecutiveAssistance($("exec_assist").value);
     return {
       slug: slug,
       title: $("title").value.trim(),
@@ -296,6 +321,7 @@
       brokers: brokers,
       brokers_comment: comment ? comment : null,
       executive_assistance: execAssist.length ? execAssist : [],
+      gallery_drive_url: $("gallery_drive_url").value.trim() || null,
       gallery_images: parseGallery($("gallery").value),
       facts: splitLines($("facts").value),
       map_embed_url: $("map_url").value.trim() || null,
@@ -318,8 +344,9 @@
   $("pick").addEventListener("change", function () {
     var slug = $("pick").value;
     if (!slug) {
-      propertyToForm({ slug: "", intro_paragraphs: [], facts: [], gallery_images: [], brokers: [], executive_assistance: [], downloads: [], detail_tabs: [], hero_image: { src: "", alt: "" }, brokers_comment: null, map_embed_url: null });
+      propertyToForm({ slug: "", intro_paragraphs: [], facts: [], gallery_images: [], gallery_drive_url: null, brokers: [], executive_assistance: [], downloads: [], detail_tabs: [], hero_image: { src: "", alt: "" }, brokers_comment: null, map_embed_url: null });
       $("exec_assist").value = "";
+      $("gallery_drive_url").value = "";
       $("downloads_json").value = "[]";
       $("tabs_json").value = "[]";
       $("msg").className = "";

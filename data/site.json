@@ -1,5 +1,6 @@
 {
-  "brand": "Property Co",
-  "home_url": "../index.html",
+  "brand": "Meadows-Hale",
+  "home_url": "https://www.meadows-hale.com",
+  "footer_label": "www.meadows-hale.com",
   "properties_index_url": "../index.html"
 }

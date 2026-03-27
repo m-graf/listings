@@ -56,7 +56,20 @@ python3 scripts/inspect_webarchive.py ~/Downloads/the-wings-group.webarchive -o 
 | `templates/index.html.j2` | Listing of all properties |
 | `static/css/property.css` | Theme (replace to match your brand) |
 
+## Publish with GitHub Pages
+
+`dist/` is gitignored; the site is built in CI and deployed from the **`dist/`** output.
+
+1. Push this repo to GitHub (e.g. `your-name/property-coper-web`).
+2. **Settings → Pages → Build and deployment:** set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push to **`main`** (or merge a PR). The workflow **Deploy Pages** runs `python build.py` and publishes `dist/`.
+4. After the workflow succeeds, open the site URL shown under **Settings → Pages**.
+
+Listing index: `https://<user>.github.io/<repo>/`  
+Southern Farmhouse example: `https://<user>.github.io/<repo>/southern-farmhouse-revival/` (paths match `dist/`).
+
 ## Notes
 
 - Remote images in sample JSON point at Wings / Unsplash URLs for demo only; host assets yourself for production.
+- **Google Drive:** Set `gallery_drive_url` to a shared folder (or gallery) link to show an “Open gallery on Google Drive” button. You can still list `gallery_images` with **file** share URLs (`drive.google.com/file/d/…`); the build uses Google’s thumbnail endpoint for `<img>`. Files must be shared **Anyone with the link** or thumbnails may not load.
 - Swiper/Fancybox from the original site are not included; the gallery is a responsive CSS grid with links to full images. You can add a lightbox library later.

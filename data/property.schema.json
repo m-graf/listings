@@ -40,8 +40,28 @@
     "brokers_comment": { "type": ["string", "null"] },
     "executive_assistance": {
       "type": "array",
-      "description": "Names only; matching broker name (trimmed) becomes in-page link",
-      "items": { "type": "string" }
+      "description": "Plain string (name; link if matches a broker) or object with contact fields",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" },
+              "title": { "type": "string" },
+              "email": { "type": "string" },
+              "phone": { "type": "string" },
+              "phone_tel": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "gallery_drive_url": {
+      "type": ["string", "null"],
+      "description": "Shared Google Drive folder or gallery link; shows Open gallery on Google Drive"
     },
     "gallery_images": {
       "type": "array",
@@ -49,13 +69,28 @@
         "type": "object",
         "required": ["src"],
         "properties": {
-          "src": { "type": "string" },
+          "src": {
+            "type": "string",
+            "description": "Image URL or Google Drive file share link (Anyone with link can view)"
+          },
           "alt": { "type": "string" }
         }
       }
     },
     "facts": { "type": "array", "items": { "type": "string" } },
     "map_embed_url": { "type": ["string", "null"] },
+    "helpful_links": {
+      "type": "array",
+      "description": "External links (e.g. directions, maps); opens in a new tab",
+      "items": {
+        "type": "object",
+        "required": ["label", "href"],
+        "properties": {
+          "label": { "type": "string" },
+          "href": { "type": "string" }
+        }
+      }
+    },
     "downloads": {
       "type": "array",
       "items": {
@@ -64,7 +99,9 @@
         "properties": {
           "title": { "type": "string" },
           "href": { "type": "string" },
-          "thumb": { "type": "string" }
+          "thumb": { "type": "string" },
+          "thumb_alt": { "type": "string" },
+          "action_label": { "type": "string", "description": "Button label (default: Download)" }
         }
       }
     },
