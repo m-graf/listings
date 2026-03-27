@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
@@ -66,6 +67,55 @@ def gallery_link_href(url: str) -> str:
     if fid:
         return f"https://drive.google.com/file/d/{fid}/view"
     return url
+
+
+def listing_inquiry_mailto_filter(email: str, listing: dict) -> str:
+    """mailto: with subject (location) and body prefilled from listing JSON."""
+    if not email or not isinstance(listing, dict):
+        return "#"
+    addr = str(email).strip()
+    if not addr:
+        return "#"
+
+    title = (listing.get("title") or "").strip()
+    loc = (listing.get("location") or "").strip()
+    acres = (listing.get("acres_label") or "").strip()
+    price = (listing.get("price_label") or "").strip()
+    status = (listing.get("status") or "").strip()
+
+    if loc:
+        subject = f"Inquiry: {loc}"
+    elif title:
+        subject = f"Inquiry: {title}"
+    else:
+        subject = "Property inquiry"
+
+    lines = [
+        "I am writing about the following listing:",
+        "",
+        f"Property: {title or '—'}",
+        f"Location: {loc or '—'}",
+    ]
+    if acres:
+        lines.append(f"Size: {acres}")
+    if price:
+        lines.append(f"Price: {price}")
+    if status:
+        lines.append(f"Status: {status}")
+    lines.extend(
+        [
+            "",
+            "Hello,",
+            "",
+            "I would like more information about this property.",
+            "",
+            "",
+        ]
+    )
+    body = "\n".join(lines)
+
+    q = f"subject={quote(subject, safe='')}&body={quote(body, safe='')}"
+    return f"mailto:{addr}?{q}"
 
 
 TEMPLATES = ROOT / "templates"
@@ -233,6 +283,7 @@ def main() -> int:
     )
     env.filters["gallery_img_src"] = gallery_img_src
     env.filters["gallery_link_href"] = gallery_link_href
+    env.filters["listing_inquiry_mailto"] = listing_inquiry_mailto_filter
     env.filters["tojson"] = _tojson_filter
 
     site_path = DATA / "site.json"

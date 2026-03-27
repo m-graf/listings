@@ -97,7 +97,7 @@
                 {% if b.phone %}<p class="broker-card__item">(Cell) {{ b.phone }}</p>{% endif %}
                 <p class="broker-card__actions">
                   {% if b.phone_tel %}<a class="button button--small" href="tel:{{ b.phone_tel }}">Call</a>{% endif %}
-                  {% if b.email %}<a class="button button--small button--brown" href="mailto:{{ b.email }}">Email</a>{% endif %}
+                  {% if b.email %}<a class="button button--small button--brown" href="{{ b.email | listing_inquiry_mailto(property) }}">Email</a>{% endif %}
                 </p>
               </div>
             </aside>
@@ -122,7 +122,7 @@
                     {% if ea.phone_tel %}<a class="executive-assistance__contact-link" href="tel:{{ ea.phone_tel }}">{{ ea.phone }}</a>{% else %}<span>{{ ea.phone }}</span>{% endif %}
                     {% endif %}
                     {% if ea.phone and ea.email %}<span class="executive-assistance__sep"> · </span>{% endif %}
-                    {% if ea.email %}<a class="executive-assistance__contact-link" href="mailto:{{ ea.email }}">{{ ea.email }}</a>{% endif %}
+                    {% if ea.email %}<a class="executive-assistance__contact-link" href="{{ ea.email | listing_inquiry_mailto(property) }}">{{ ea.email }}</a>{% endif %}
                   </span>
                   {% endif %}
                 </div>
