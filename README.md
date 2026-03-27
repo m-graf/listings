@@ -2,7 +2,7 @@
 
 Templatized **land / property listing** pages. One JSON file per property → static HTML.
 
-The **blueprint** matches the section structure of [The Wings Group](https://www.wingsgroupllc.com) style listings (hero, meta, sticky nav, intro + broker, gallery, facts, map, downloads, detail tabs), as seen in `~/Downloads/the-wings-group.webarchive` (Cloudland Pastures). This project does **not** bundle their CSS/JS or WordPress markup—only a parallel layout and class naming for familiarity.
+The **blueprint** matches the section structure of [The Wings Group](https://www.wingsgroupllc.com) style listings (hero, meta, sticky nav, intro + broker, gallery, facts, map, downloads, detail tabs). This project does **not** bundle their CSS/JS or WordPress markup—only a parallel layout and class naming for familiarity.
 
 ## Quick start
 
@@ -34,7 +34,7 @@ New listing: leave dropdown on “New”, enter a **slug**, fill the form, **Sav
 
 ## Add a property
 
-1. Copy `data/oak-hollow-sample.json` to `data/your-slug.json`.
+1. Copy `data/southern-farmhouse-revival.json` to `data/your-slug.json` (or start from **New** in the editor).
 2. Set `"slug"` (used for URL path) and fill fields. Omit or null `map_embed_url`, `downloads`, `brokers_comment`, etc. to hide sections.
 3. Run `python build.py` → `dist/<slug>/index.html`.
 
