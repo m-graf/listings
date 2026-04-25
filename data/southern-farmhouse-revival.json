@@ -7,9 +7,7 @@
   "status": "Available",
   "hero_image": {
     "src": "../static/photos/0.jpg",
-    "alt": "Southern Farmhouse Revival — hero",
-    "width": 1920,
-    "height": 1383
+    "alt": "Southern Farmhouse Revival — hero"
   },
   "intro_paragraphs": [
     "Cloudland Pastures is a picturesque 101± acre working homestead on Lookout Mountain in northwest Georgia. The land unfolds across gently rolling pastureland framed by wooded edges that provide both privacy and natural beauty.",
@@ -44,34 +42,116 @@
       "phone_tel": "+12564871387"
     }
   ],
+  "gallery_drive_url": null,
   "gallery_images": [
-    { "src": "../static/photos/1.jpeg", "alt": "Southern Farmhouse Revival — 1" },
-    { "src": "../static/photos/10a.jpeg", "alt": "Southern Farmhouse Revival — 10a" },
-    { "src": "../static/photos/11a.jpeg", "alt": "Southern Farmhouse Revival — 11a" },
-    { "src": "../static/photos/11ab.jpeg", "alt": "Southern Farmhouse Revival — 11ab" },
-    { "src": "../static/photos/12a.jpeg", "alt": "Southern Farmhouse Revival — 12a" },
-    { "src": "../static/photos/13ab.jpeg", "alt": "Southern Farmhouse Revival — 13ab" },
-    { "src": "../static/photos/14a.jpeg", "alt": "Southern Farmhouse Revival — 14a" },
-    { "src": "../static/photos/15a.jpeg", "alt": "Southern Farmhouse Revival — 15a" },
-    { "src": "../static/photos/16a.jpeg", "alt": "Southern Farmhouse Revival — 16a" },
-    { "src": "../static/photos/17a.jpeg", "alt": "Southern Farmhouse Revival — 17a" },
-    { "src": "../static/photos/18a.jpeg", "alt": "Southern Farmhouse Revival — 18a" },
-    { "src": "../static/photos/19a.jpeg", "alt": "Southern Farmhouse Revival — 19a" },
-    { "src": "../static/photos/20a.jpeg", "alt": "Southern Farmhouse Revival — 20a" },
-    { "src": "../static/photos/21a.jpeg", "alt": "Southern Farmhouse Revival — 21a" },
-    { "src": "../static/photos/21ab.jpeg", "alt": "Southern Farmhouse Revival — 21ab" },
-    { "src": "../static/photos/22a.jpeg", "alt": "Southern Farmhouse Revival — 22a" },
-    { "src": "../static/photos/23a.jpeg", "alt": "Southern Farmhouse Revival — 23a" },
-    { "src": "../static/photos/24a.jpeg", "alt": "Southern Farmhouse Revival — 24a" },
-    { "src": "../static/photos/26a.jpeg", "alt": "Southern Farmhouse Revival — 26a" },
-    { "src": "../static/photos/2a.jpeg", "alt": "Southern Farmhouse Revival — 2a" },
-    { "src": "../static/photos/3a.jpeg", "alt": "Southern Farmhouse Revival — 3a" },
-    { "src": "../static/photos/4a.jpeg", "alt": "Southern Farmhouse Revival — 4a" },
-    { "src": "../static/photos/6a.jpeg", "alt": "Southern Farmhouse Revival — 6a" },
-    { "src": "../static/photos/6ab.jpeg", "alt": "Southern Farmhouse Revival — 6ab" },
-    { "src": "../static/photos/7a.jpeg", "alt": "Southern Farmhouse Revival — 7a" },
-    { "src": "../static/photos/8a.jpeg", "alt": "Southern Farmhouse Revival — 8a" },
-    { "src": "../static/photos/9a.jpeg", "alt": "Southern Farmhouse Revival — 9a" }
+    {
+      "src": "../static/photos/1.jpeg",
+      "alt": "Southern Farmhouse Revival — 1"
+    },
+    {
+      "src": "../static/photos/10a.jpeg",
+      "alt": "Southern Farmhouse Revival — 10a"
+    },
+    {
+      "src": "../static/photos/11a.jpeg",
+      "alt": "Southern Farmhouse Revival — 11a"
+    },
+    {
+      "src": "../static/photos/11ab.jpeg",
+      "alt": "Southern Farmhouse Revival — 11ab"
+    },
+    {
+      "src": "../static/photos/12a.jpeg",
+      "alt": "Southern Farmhouse Revival — 12a"
+    },
+    {
+      "src": "../static/photos/13ab.jpeg",
+      "alt": "Southern Farmhouse Revival — 13ab"
+    },
+    {
+      "src": "../static/photos/14a.jpeg",
+      "alt": "Southern Farmhouse Revival — 14a"
+    },
+    {
+      "src": "../static/photos/15a.jpeg",
+      "alt": "Southern Farmhouse Revival — 15a"
+    },
+    {
+      "src": "../static/photos/16a.jpeg",
+      "alt": "Southern Farmhouse Revival — 16a"
+    },
+    {
+      "src": "../static/photos/17a.jpeg",
+      "alt": "Southern Farmhouse Revival — 17a"
+    },
+    {
+      "src": "../static/photos/18a.jpeg",
+      "alt": "Southern Farmhouse Revival — 18a"
+    },
+    {
+      "src": "../static/photos/19a.jpeg",
+      "alt": "Southern Farmhouse Revival — 19a"
+    },
+    {
+      "src": "../static/photos/20a.jpeg",
+      "alt": "Southern Farmhouse Revival — 20a"
+    },
+    {
+      "src": "../static/photos/21a.jpeg",
+      "alt": "Southern Farmhouse Revival — 21a"
+    },
+    {
+      "src": "../static/photos/21ab.jpeg",
+      "alt": "Southern Farmhouse Revival — 21ab"
+    },
+    {
+      "src": "../static/photos/22a.jpeg",
+      "alt": "Southern Farmhouse Revival — 22a"
+    },
+    {
+      "src": "../static/photos/23a.jpeg",
+      "alt": "Southern Farmhouse Revival — 23a"
+    },
+    {
+      "src": "../static/photos/24a.jpeg",
+      "alt": "Southern Farmhouse Revival — 24a"
+    },
+    {
+      "src": "../static/photos/26a.jpeg",
+      "alt": "Southern Farmhouse Revival — 26a"
+    },
+    {
+      "src": "../static/photos/2a.jpeg",
+      "alt": "Southern Farmhouse Revival — 2a"
+    },
+    {
+      "src": "../static/photos/3a.jpeg",
+      "alt": "Southern Farmhouse Revival — 3a"
+    },
+    {
+      "src": "../static/photos/4a.jpeg",
+      "alt": "Southern Farmhouse Revival — 4a"
+    },
+    {
+      "src": "../static/photos/6a.jpeg",
+      "alt": "Southern Farmhouse Revival — 6a"
+    },
+    {
+      "src": "../static/photos/6ab.jpeg",
+      "alt": "Southern Farmhouse Revival — 6ab"
+    },
+    {
+      "src": "../static/photos/7a.jpeg",
+      "alt": "Southern Farmhouse Revival — 7a"
+    },
+    {
+      "src": "../static/photos/8a.jpeg",
+      "alt": "Southern Farmhouse Revival — 8a"
+    },
+    {
+      "src": "../static/photos/9a.jpeg",
+      "alt": "Southern Farmhouse Revival — 9a"
+    }
   ],
   "facts": [
     "Picturesque 101± acre working homestead in northwest Georgia, well-suited for horses or cattle, small-scale agriculture, or recreational use",
