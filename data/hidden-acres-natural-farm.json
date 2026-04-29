@@ -258,18 +258,18 @@
     "Split-bedroom plan; primary suite with walk-in closet, en-suite bath, and private courtyard access",
     "2,100 sq. ft. barn with electricity (adaptable to up to eight stalls); chicken area with automated coop entry; large two-door shed with electricity; RV carport; whole-house generator"
   ],
-  "map_embed_url": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/embed",
+  "map_embed_url": "https://id.land/maps/977f17977690fdb5df3d83b5eb77ccc9/embed",
   "helpful_links": [
     {
       "title": "Parcel locator — directions & lot lines",
       "description": "Scan the QR code on your phone to open the Meadows-Hale parcel map. Use it for driving directions to the residence and to see property boundaries while you are on site.",
-      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=dcebf05ce824cd5d11f0f0777a0f67fa",
+      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=977f17977690fdb5df3d83b5eb77ccc9",
       "link_text": "Open parcel locator"
     },
     {
       "title": "Land id® interactive map",
       "description": "Scan to open the shared Land id map in your browser. Explore aerial imagery, terrain, and surrounding parcels to understand the property in context.",
-      "href": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/share",
+      "href": "https://id.land/maps/977f17977690fdb5df3d83b5eb77ccc9/share",
       "link_text": "Open interactive map"
     }
   ],
