@@ -84,7 +84,7 @@
             {% for b in property.brokers %}
             <aside class="broker-card" id="broker-{{ loop.index0 }}">
               <div class="broker-card__image">
-                <img src="{{ b.photo | gallery_img_src }}" alt="{{ b.name }}" width="320" height="400" loading="lazy" decoding="async">
+                <img src="{{ b.photo | gallery_img_src }}" alt="{{ b.name }}" width="320" height="400" loading="lazy" decoding="async"{% if b.photo_object_position %} style="object-position: {{ b.photo_object_position | e }}"{% endif %}>
               </div>
               <div class="broker-card__content">
                 <h3 class="broker-card__name">{{ b.name }}</h3>

@@ -35,6 +35,10 @@
           "name": { "type": "string" },
           "title": { "type": "string" },
           "photo": { "type": "string" },
+          "photo_object_position": {
+            "type": "string",
+            "description": "Optional CSS object-position for the headshot (e.g. 72% center, right center) when object-fit: cover crops awkwardly"
+          },
           "about_url": { "type": "string" },
           "about_label": { "type": "string" },
           "phone": { "type": "string" },
