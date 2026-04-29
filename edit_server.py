@@ -319,13 +319,17 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/list-photos":
             files: list[str] = []
             if ASSETS_PHOTOS.is_dir():
-                for f in sorted(ASSETS_PHOTOS.iterdir()):
-                    if (
-                        f.is_file()
-                        and not f.name.startswith(".")
-                        and f.suffix.lower() in _UPLOAD_EXT
+                for f in sorted(ASSETS_PHOTOS.rglob("*")):
+                    if not f.is_file():
+                        continue
+                    if any(
+                        p.startswith(".")
+                        for p in f.relative_to(ASSETS_PHOTOS).parts
                     ):
-                        files.append(f.name)
+                        continue
+                    if f.suffix.lower() not in _UPLOAD_EXT:
+                        continue
+                    files.append(f.relative_to(ASSETS_PHOTOS).as_posix())
             self._json({"files": files})
             return
 

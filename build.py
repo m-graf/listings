@@ -24,7 +24,7 @@ _DRIVE_FILE_PATH = re.compile(
     re.IGNORECASE,
 )
 _DRIVE_OPEN_ID = re.compile(r"[?&]id=([a-zA-Z0-9_-]+)", re.IGNORECASE)
-_HERO_STATIC_PHOTO = re.compile(r"^\.\./static/photos/([^/?#]+)$")
+_HERO_STATIC_PHOTO = re.compile(r"^\.\./static/photos/(.+)$")
 HERO_MAX_DIMENSION = 1920
 HERO_JPEG_QUALITY = 86
 # Skip re-encoding heroes already this small (bytes), unless dimensions exceed max
@@ -176,7 +176,10 @@ def optimize_hero_in_dist(prop: dict, dest_photos: Path) -> None:
     m = _HERO_STATIC_PHOTO.match(src)
     if not m:
         return
-    in_path = dest_photos / m.group(1)
+    rel = m.group(1).strip()
+    if not rel or ".." in Path(rel).parts:
+        return
+    in_path = dest_photos / rel
     if not in_path.is_file():
         return
     try:
@@ -217,7 +220,8 @@ def optimize_hero_in_dist(prop: dict, dest_photos: Path) -> None:
             and size_b < HERO_SKIP_JPEG_UNDER_BYTES
         ):
             return
-        out_path = dest_photos / f"{in_path.stem}.jpg"
+        out_path = in_path.parent / f"{in_path.stem}.jpg"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         rgb.save(
             out_path,
             "JPEG",
@@ -227,7 +231,9 @@ def optimize_hero_in_dist(prop: dict, dest_photos: Path) -> None:
         )
         if in_path.resolve() != out_path.resolve():
             in_path.unlink(missing_ok=True)
-        hi["src"] = f"../static/photos/{out_path.name}"
+        hi["src"] = (
+            f"../static/photos/{out_path.relative_to(dest_photos).as_posix()}"
+        )
         return
 
     if needs_resize:
@@ -319,9 +325,15 @@ def main() -> int:
     if assets_photos.is_dir():
         dest_photos = DIST / "static" / "photos"
         dest_photos.mkdir(parents=True, exist_ok=True)
-        for f in assets_photos.iterdir():
-            if f.is_file() and not f.name.startswith("."):
-                shutil.copy2(f, dest_photos / f.name)
+        for f in assets_photos.rglob("*"):
+            if not f.is_file() or any(
+                p.startswith(".") for p in f.relative_to(assets_photos).parts
+            ):
+                continue
+            rel = f.relative_to(assets_photos)
+            out = dest_photos / rel
+            out.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, out)
 
     assets_brokers = ROOT / "assets" / "brokers"
     if assets_brokers.is_dir():

@@ -6,7 +6,7 @@
   "price_label": "$1,800,000",
   "status": "Available",
   "hero_image": {
-    "src": "../static/photos/0.jpg",
+    "src": "../static/photos/hidden-acres-natural-farm/hero.jpg",
     "alt": "Hidden Acres Natural Farm — hero"
   },
   "intro_paragraphs": [
@@ -51,112 +51,204 @@
   "gallery_drive_url": null,
   "gallery_images": [
     {
-      "src": "../static/photos/1.jpeg",
-      "alt": "Hidden Acres Natural Farm — 1"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-01.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 1"
     },
     {
-      "src": "../static/photos/10a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 10a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-02.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 2"
     },
     {
-      "src": "../static/photos/11a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 11a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-03.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 3"
     },
     {
-      "src": "../static/photos/11ab.jpeg",
-      "alt": "Hidden Acres Natural Farm — 11ab"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-04.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 4"
     },
     {
-      "src": "../static/photos/12a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 12a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-05.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 5"
     },
     {
-      "src": "../static/photos/13ab.jpeg",
-      "alt": "Hidden Acres Natural Farm — 13ab"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-06.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 6"
     },
     {
-      "src": "../static/photos/14a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 14a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-07.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 7"
     },
     {
-      "src": "../static/photos/15a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 15a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-08.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 8"
     },
     {
-      "src": "../static/photos/16a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 16a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-09.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 9"
     },
     {
-      "src": "../static/photos/17a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 17a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-10.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 10"
     },
     {
-      "src": "../static/photos/18a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 18a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-11.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 11"
     },
     {
-      "src": "../static/photos/19a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 19a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-12.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 12"
     },
     {
-      "src": "../static/photos/20a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 20a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-13.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 13"
     },
     {
-      "src": "../static/photos/21a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 21a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-14.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 14"
     },
     {
-      "src": "../static/photos/21ab.jpeg",
-      "alt": "Hidden Acres Natural Farm — 21ab"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-15.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 15"
     },
     {
-      "src": "../static/photos/22a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 22a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-16.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 16"
     },
     {
-      "src": "../static/photos/23a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 23a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-17.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 17"
     },
     {
-      "src": "../static/photos/24a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 24a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-18.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 18"
     },
     {
-      "src": "../static/photos/26a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 26a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-19.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 19"
     },
     {
-      "src": "../static/photos/2a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 2a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-20.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 20"
     },
     {
-      "src": "../static/photos/3a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 3a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-21.jpg",
+      "alt": "Hidden Acres Natural Farm — exterior 21"
     },
     {
-      "src": "../static/photos/4a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 4a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-22.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 22"
     },
     {
-      "src": "../static/photos/6a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 6a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-23.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 23"
     },
     {
-      "src": "../static/photos/6ab.jpeg",
-      "alt": "Hidden Acres Natural Farm — 6ab"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-24.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 24"
     },
     {
-      "src": "../static/photos/7a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 7a"
+      "src": "../static/photos/hidden-acres-natural-farm/exterior/exterior-25.jpeg",
+      "alt": "Hidden Acres Natural Farm — exterior 25"
     },
     {
-      "src": "../static/photos/8a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 8a"
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-01.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 1"
     },
     {
-      "src": "../static/photos/9a.jpeg",
-      "alt": "Hidden Acres Natural Farm — 9a"
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-02.jpeg",
+      "alt": "Hidden Acres Natural Farm — interior 2"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-03.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 3"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-04.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 4"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-05.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 5"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-06.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 6"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-07.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 7"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-08.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 8"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-09.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 9"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-10.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 10"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-11.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 11"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-12.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 12"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-13.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 13"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-14.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 14"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-15.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 15"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-16.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 16"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-17.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 17"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-18.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 18"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-19.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 19"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-20.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 20"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-21.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 21"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-22.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 22"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-23.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 23"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-24.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 24"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/interior/interior-25.jpg",
+      "alt": "Hidden Acres Natural Farm — interior 25"
     }
   ],
   "facts": [
@@ -185,7 +277,7 @@
     {
       "title": "Maps & documents (Google Drive)",
       "href": "https://drive.google.com/drive/folders/1whiTx94AtW8nd5hGjTvDaDmVBGBUDnqC?usp=sharing",
-      "thumb": "../static/photos/0.jpg",
+      "thumb": "../static/photos/hidden-acres-natural-farm/hero.jpg",
       "thumb_alt": "Hidden Acres Natural Farm — hero",
       "action_label": "Open folder"
     }
