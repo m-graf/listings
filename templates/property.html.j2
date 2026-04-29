@@ -158,9 +158,26 @@
           {% if property.gallery_images and property.gallery_images|length > 0 %}
           <div class="gallery-grid">
             {% for img in property.gallery_images %}
-            <a class="gallery-grid__cell" href="{{ img.src | gallery_link_href }}" target="_blank" rel="noopener noreferrer">
-              <img src="{{ img.src | gallery_img_src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
+            {% set g_src = (img.src or '') | trim %}
+            {% set g_href = img.src | gallery_link_href %}
+            {% if (g_src | lower)[-4:] == '.pdf' %}
+            {% set g_thumb = (img.thumb or '') | trim %}
+            <a class="gallery-grid__cell gallery-grid__cell--pdf{% if g_thumb %} gallery-grid__cell--pdf-thumb{% endif %}" href="{{ g_href }}" target="_blank" rel="noopener noreferrer">
+              {% if g_thumb %}
+              <img src="{{ g_thumb | gallery_img_src }}" alt="{{ img.alt | default('PDF document', true) }}" loading="lazy" decoding="async">
+              <span class="gallery-grid__pdf-ribbon" aria-hidden="true">PDF</span>
+              {% else %}
+              <span class="gallery-grid__pdf-card">
+                <span class="gallery-grid__pdf-badge">PDF</span>
+                <span class="gallery-grid__pdf-caption">{{ img.alt | default('Open PDF', true) }}</span>
+              </span>
+              {% endif %}
             </a>
+            {% else %}
+            <a class="gallery-grid__cell" href="{{ g_href }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ g_src | gallery_img_src }}" alt="{{ img.alt | default('') }}" loading="lazy" decoding="async">
+            </a>
+            {% endif %}
             {% endfor %}
           </div>
           {% endif %}

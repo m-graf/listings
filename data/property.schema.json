@@ -81,9 +81,13 @@
         "properties": {
           "src": {
             "type": "string",
-            "description": "Image URL or Google Drive file share link (Anyone with link can view)"
+            "description": "Image URL, relative ../static/photos/… path, Google Drive file share link, or .pdf for a document tile in the gallery"
           },
-          "alt": { "type": "string" }
+          "alt": { "type": "string" },
+          "thumb": {
+            "type": "string",
+            "description": "Optional image path for gallery PDF rows; first-page preview, links still use src (.pdf)"
+          }
         }
       }
     },

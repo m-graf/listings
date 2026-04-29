@@ -249,6 +249,16 @@
     {
       "src": "../static/photos/hidden-acres-natural-farm/interior/interior-25.jpg",
       "alt": "Hidden Acres Natural Farm — interior 25"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/pdfs/floor-plan.pdf",
+      "thumb": "../static/photos/hidden-acres-natural-farm/pdfs/floor-plan-thumb.jpg",
+      "alt": "Hidden Acres Natural Farm — floor plan (PDF)"
+    },
+    {
+      "src": "../static/photos/hidden-acres-natural-farm/pdfs/property-map.pdf",
+      "thumb": "../static/photos/hidden-acres-natural-farm/pdfs/property-map-thumb.jpg",
+      "alt": "Hidden Acres Natural Farm — property map (PDF)"
     }
   ],
   "facts": [
