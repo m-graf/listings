@@ -23,19 +23,20 @@
   ],
   "brokers": [
     {
-      "name": "Mycah Ortiz",
-      "title": "Agent",
-      "photo": "../static/brokers/mycah.jpg",
-      "phone": "334-614-0116",
-      "phone_tel": "+13346140116"
-    },
-    {
       "name": "Julie G'vitale",
       "title": "Broker (Georgia & Florida)",
       "photo": "../static/brokers/julie.jpg",
       "phone": "708-810-3581",
       "phone_tel": "+17088103581",
       "email": "julie@meadows-hale.com"
+    },
+    {
+      "name": "Mycah Ortiz",
+      "title": "Agent",
+      "photo": "../static/brokers/mycah.jpg",
+      "phone": "334-614-0116",
+      "phone_tel": "+13346140116",
+      "email": "mycah@meadows-hale.com"
     }
   ],
   "brokers_comment": "Hidden Acres Natural Farm pairs a gracious 4,480 sq. ft. residence with turnkey farm infrastructure—pastures, pond, barn, and outbuildings—on a private 21.42-acre North Hall County setting.",
@@ -286,7 +287,7 @@
   "downloads": [
     {
       "title": "Maps & documents (Google Drive)",
-      "href": "https://drive.google.com/drive/folders/1whiTx94AtW8nd5hGjTvDaDmVBGBUDnqC?usp=sharing",
+      "href": "https://drive.google.com/drive/folders/18k2rwzsZLdWiJstWsc0jgezKv4K2kCyB?usp=sharing",
       "thumb": "../static/photos/hidden-acres-natural-farm/hero.jpg",
       "thumb_alt": "Hidden Acres Natural Farm — hero",
       "action_label": "Open folder"

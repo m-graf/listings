@@ -91,10 +91,21 @@
                 <p class="broker-card__title">{{ b.title }}</p>
                 {% if b.about_url %}<p class="broker-card__item"><a href="{{ b.about_url }}">{{ b.about_label | default('About') }}</a></p>{% endif %}
                 {% if b.phone %}<p class="broker-card__item">(Cell) {{ b.phone }}</p>{% endif %}
-                <p class="broker-card__actions">
-                  {% if b.phone_tel %}<a class="button button--small" href="tel:{{ b.phone_tel }}">Call</a>{% endif %}
-                  {% if b.email %}<a class="button button--small button--brown" href="{{ b.email | listing_inquiry_mailto(property) }}">Email</a>{% endif %}
-                </p>
+                <div class="broker-card__actions">
+                  {% if b.phone_tel %}
+                  <div class="broker-card__actions-row">
+                    <a class="button button--small broker-card__actions-btn" href="tel:{{ b.phone_tel }}">Call</a>
+                  </div>
+                  <div class="broker-card__actions-row">
+                    <a class="button button--small broker-card__actions-btn" href="sms:{{ b.phone_tel }}">Text</a>
+                  </div>
+                  {% endif %}
+                  {% if b.email %}
+                  <div class="broker-card__actions-row">
+                    <a class="button button--small button--brown broker-card__actions-btn" href="{{ b.email | listing_inquiry_mailto(property) }}">Email</a>
+                  </div>
+                  {% endif %}
+                </div>
               </div>
             </aside>
             {% endfor %}
@@ -115,10 +126,15 @@
                   {% if ea.phone or ea.email %}
                   <span class="executive-assistance__contact">
                     {% if ea.phone %}
-                    {% if ea.phone_tel %}<a class="executive-assistance__contact-link" href="tel:{{ ea.phone_tel }}">{{ ea.phone }}</a>{% else %}<span>{{ ea.phone }}</span>{% endif %}
+                    <span class="executive-assistance__contact-row">
+                      {% if ea.phone_tel %}<a class="executive-assistance__contact-link" href="tel:{{ ea.phone_tel }}">{{ ea.phone }}</a>{% else %}<span>{{ ea.phone }}</span>{% endif %}
+                    </span>
                     {% endif %}
-                    {% if ea.phone and ea.email %}<span class="executive-assistance__sep"> · </span>{% endif %}
-                    {% if ea.email %}<a class="executive-assistance__contact-link" href="{{ ea.email | listing_inquiry_mailto(property) }}">{{ ea.email }}</a>{% endif %}
+                    {% if ea.email %}
+                    <span class="executive-assistance__contact-row">
+                      <a class="executive-assistance__contact-link" href="{{ ea.email | listing_inquiry_mailto(property) }}">{{ ea.email }}</a>
+                    </span>
+                    {% endif %}
                   </span>
                   {% endif %}
                 </div>
