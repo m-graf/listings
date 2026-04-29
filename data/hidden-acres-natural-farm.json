@@ -292,18 +292,5 @@
       "action_label": "Open folder"
     }
   ],
-  "detail_tabs": [
-    {
-      "label": "Location",
-      "images": [
-        {
-          "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/Location-CloudlandPastures-1.jpg",
-          "alt": "Location map"
-        }
-      ],
-      "paragraphs": [
-        "5855 Tony Peck Road, Murrayville, North Hall County, Georgia 30564—a private North Georgia farm estate convenient to Gainesville and Northeast Georgia amenities."
-      ]
-    }
-  ]
+  "detail_tabs": []
 }
