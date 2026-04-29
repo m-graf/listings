@@ -26,7 +26,13 @@ open dist/index.html
 
 3. Choose a listing from the dropdown, edit fields, click **Save** (writes `data/<slug>.json`).
 
-4. Run **`python build.py`** to refresh `dist/`.
+4. **Rich text + live preview:** Intro and broker comment use **[Quill](https://quilljs.com/)** (bundled under `admin/vendor/quill/` — works offline, no CDN). On the editor page, **“Story & broker note”** is right under the property dropdown: gray toolbar (**B** / **I** / lists / link) above the white typing area. The iframe **updates automatically** from the form (debounced). **Reload from disk** loads `data/*.json` again. **Save HTML as ZIP** bundles `index.html` + local `static/` files. Optional JSON fields `intro_html` and `brokers_comment_html` store the rich HTML; older listings keep using `intro_paragraphs` / `brokers_comment` until re-saved.
+
+5. Run **`python build.py`** to refresh `dist/` (static site build; optional if you only use the ZIP handoff).
+
+**Broker presets:** edit `data/broker_presets.json` (`presets` array: `label` + `broker` object). In the admin UI, use **Apply to Broker 1 / 2** to fill the broker form from a preset.
+
+**Gallery:** use **Add photos from computer** to upload into `assets/photos/` (via `POST /api/upload-photo`). Reorder rows with ↑ ↓; order in the editor is the order on the published page. Add files already on disk from the **assets/photos** dropdown.
 
 New listing: leave dropdown on “New”, enter a **slug**, fill the form, **Save**.
 
@@ -43,7 +49,7 @@ See **`docs/BLUEPRINT.md`** for the field → section map.
 | Path | Role |
 |------|------|
 | `data/site.json` | Brand, footer links, optional analytics |
-| `data/*.json` | Listing payloads (`site.json` and `property.schema.json` are not listings) |
+| `data/*.json` | Listing payloads (`site.json`, `property.schema.json`, `broker_presets.json` are not listings) |
 | `templates/property.html.j2` | Listing page |
 | `templates/index.html.j2` | Index of all listings |
 | `static/css/property.css` | Styles |

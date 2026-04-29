@@ -1,0 +1,26 @@
+{
+  "presets": [
+    {
+      "label": "Jon Hale",
+      "broker": {
+        "name": "Jon Hale",
+        "title": "Broker",
+        "photo": "../static/brokers/jon.jpg",
+        "phone": "706-580-6545",
+        "phone_tel": "+17065806545",
+        "email": "jon@meadows-hale.com"
+      }
+    },
+    {
+      "label": "Julie G'vitale",
+      "broker": {
+        "name": "Julie G'vitale",
+        "title": "Broker (Georgia & Florida)",
+        "photo": "../static/brokers/julie.jpg",
+        "phone": "708-810-3581",
+        "phone_tel": "+17088103581",
+        "email": "julie@meadows-hale.com"
+      }
+    }
+  ]
+}

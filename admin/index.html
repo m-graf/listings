@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Edit property</title>
+  <link href="/admin/vendor/quill/quill.snow.css" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem 1.25rem 3rem; max-width: 44rem; color: #111; }
-    h1 { font-size: 1.25rem; margin: 0 0 1rem; }
-    p.hint { color: #555; font-size: 0.9rem; margin: 0.25rem 0 1rem; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 1rem 1.25rem 3rem; max-width: 52rem; color: #111; font-size: 1.05rem; }
+    h1 { font-size: 1.5rem; margin: 0 0 1rem; }
+    p.hint { color: #555; font-size: 1rem; margin: 0.25rem 0 1rem; line-height: 1.45; }
     label { display: block; font-weight: 600; font-size: 0.85rem; margin-top: 1rem; }
     input[type="text"], input[type="url"], input[type="email"], textarea, select {
       width: 100%; margin-top: 0.25rem; padding: 0.45rem 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px;
@@ -29,16 +30,93 @@
     hr { margin: 1.5rem 0; border: none; border-top: 1px solid #ddd; }
     fieldset { border: 1px solid #ddd; border-radius: 4px; padding: 0 1rem 1rem; margin-top: 1rem; }
     legend { padding: 0 0.35rem; font-weight: 600; }
+    #iframe-wrap { margin-top: 0.75rem; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #f5f5f5; }
+    #livePreview { width: 100%; min-height: 72vh; border: 0; display: block; background: #fff; }
+    h2.section { font-size: 1.05rem; margin: 0 0 0.5rem; }
+    .mom-hint {
+      background: #e8f4fc; border: 2px solid #1976d2; border-radius: 8px; padding: 1rem 1.15rem; margin: 1rem 0;
+      font-size: 1.05rem; line-height: 1.5;
+    }
+    .mom-hint strong { color: #0d47a1; }
+    .mom-hint ol { margin: 0.5rem 0 0 1.25rem; padding: 0; }
+    .mom-hint li { margin: 0.35rem 0; }
+    .rich-block { margin-top: 1.25rem; padding-top: 0.5rem; border-top: 2px solid #333; }
+    .rich-block h2 { font-size: 1.35rem; margin: 0 0 0.5rem; color: #111; }
+    .quill-wrap { margin-top: 0.35rem; background: #fff; border-radius: 4px; }
+    .quill-wrap .ql-editor { min-height: 11rem; font-size: 1.1rem; line-height: 1.5; font-family: inherit; }
+    .quill-wrap--small .ql-editor { min-height: 5.5rem; font-size: 1.05rem; }
+    .ql-toolbar.ql-snow { border-radius: 4px 4px 0 0; border-color: #ccc; font-family: inherit; padding: 10px 8px; }
+    .ql-toolbar.ql-snow .ql-formats { margin-right: 12px; }
+    .ql-snow .ql-picker { font-size: 1rem !important; }
+    .ql-snow .ql-picker-label { padding: 4px 6px; }
+    .ql-snow .ql-stroke { stroke-width: 2.5px; }
+    .ql-toolbar.ql-snow button { width: 34px !important; height: 34px !important; padding: 6px !important; }
+    .ql-container.ql-snow { border-radius: 0 0 4px 4px; border-color: #ccc; font-family: inherit; font-size: 1.1rem; }
+    #live-status { font-size: 0.8rem; color: #666; margin-top: 0.35rem; min-height: 1.2em; }
+    .gallery-list { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .gallery-item { display: flex; gap: 0.75rem; align-items: flex-start; flex-wrap: wrap; padding: 0.65rem; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; transition: box-shadow 0.1s, opacity 0.1s; }
+    .gallery-item--dragging { opacity: 0.45; }
+    .gallery-item--drop-before { box-shadow: inset 0 3px 0 0 #1976d2; }
+    .gallery-item--drop-after { box-shadow: inset 0 -3px 0 0 #1976d2; }
+    .gallery-item__handle {
+      flex: 0 0 auto; cursor: grab; user-select: none; -webkit-user-select: none;
+      padding: 0.35rem 0.45rem; margin: -0.15rem 0 0 -0.15rem; color: #666; font-size: 1.15rem;
+      line-height: 1; align-self: center; border-radius: 4px; letter-spacing: -0.12em;
+    }
+    .gallery-item__handle:hover { background: #e3e3e3; color: #111; }
+    .gallery-item__handle:active { cursor: grabbing; }
+    .gallery-item__thumb { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 4px; overflow: hidden; background: #eee; }
+    .gallery-item__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-item__thumb img:not([src]), .gallery-item__thumb img[src=""] { visibility: hidden; }
+    .gallery-item__fields { flex: 1; min-width: 12rem; }
+    .gallery-item__fields label { margin-top: 0.35rem; font-size: 0.8rem; }
+    .gallery-item__fields input { margin-top: 0.15rem; }
+    .gallery-item__btns { display: flex; flex-direction: column; gap: 0.35rem; }
+    .gallery-item__btns button { margin: 0; padding: 0.35rem 0.55rem; font-size: 0.95rem; }
   </style>
 </head>
 <body>
   <h1>Edit listing</h1>
-  <p class="hint">Pick a property or start new. Save writes <code>data/&lt;slug&gt;.json</code>. Then run <code>python build.py</code> for HTML.</p>
+  <p class="hint">Pick a listing below, edit the page, then click <strong>Save</strong> at the bottom. (Technical: writes <code>data/&lt;slug&gt;.json</code>; run <code>python build.py</code> when you want static HTML in <code>dist/</code>.)</p>
+
+  <div class="mom-hint" role="region" aria-label="How to use the editor">
+    <strong>Rich text editor (word-processor style)</strong>
+    <ol>
+      <li>On your computer, run: <code>python3 edit_server.py</code> in this project folder (ask for help once if needed).</li>
+      <li>In the browser, open <strong>http://127.0.0.1:8766/</strong> — only works on the same computer.</li>
+      <li>Choose a property in the dropdown, then scroll to <strong>“Story &amp; broker note”</strong> right below.</li>
+      <li>Click in the big white box. Use the <strong>gray toolbar</strong> above it: <strong>B</strong> bold, <strong>I</strong> italic, lists, and link. The preview further down updates after you pause typing.</li>
+      <li>Click <strong>Save</strong> at the bottom when finished.</li>
+    </ol>
+  </div>
 
   <label for="pick">Property</label>
   <select id="pick">
     <option value="">— New (empty form) —</option>
   </select>
+
+  <div class="rich-block" id="rich-editors">
+    <h2>Story &amp; broker note (rich text)</h2>
+    <p class="hint">This is the main word processor. Type here first — you don’t need the technical fields below for simple text edits.</p>
+    <label>Intro — main description</label>
+    <p class="hint">Bold, bullet lists, and links. This is what visitors read first on the listing page.</p>
+    <div id="intro-editor" class="quill-wrap"></div>
+
+    <label style="margin-top: 1.25rem;">Broker comment (optional)</label>
+    <p class="hint">Short note from the broker — same toolbar, smaller box.</p>
+    <div id="b-comment-editor" class="quill-wrap quill-wrap--small"></div>
+  </div>
+
+  <hr>
+
+  <h2 class="section">Live preview</h2>
+  <p class="hint"><strong>Updates automatically</strong> from the form and rich-text fields (debounced). <strong>Reload from disk</strong> replaces the form and preview with the saved JSON file (drops unsaved edits). <strong>Save HTML as ZIP</strong> bundles <code>index.html</code> plus local <code>static/</code> assets. Remote URLs stay as links in the HTML, not files in the ZIP.</p>
+  <button type="button" id="btnPreviewReload" class="secondary">Reload from disk</button>
+  <button type="button" id="btnSaveZip">Save HTML as ZIP</button>
+  <div id="live-status" aria-live="polite"></div>
+  <div id="iframe-wrap">
+    <iframe id="livePreview" title="Listing preview" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+  </div>
 
   <hr>
 
@@ -78,9 +156,22 @@
   <label for="hero_alt">Hero image description</label>
   <input id="hero_alt" type="text">
 
-  <label for="intro">Intro (paragraphs)</label>
-  <p class="hint">Blank line between paragraphs.</p>
-  <textarea id="intro" class="tall"></textarea>
+  <fieldset>
+    <legend>Broker profiles (quick fill)</legend>
+    <p class="hint">Saved in <code>data/broker_presets.json</code>. Pick a person, click <strong>Apply</strong>, then adjust if needed. Turns on “Include broker card” and fills name, phone, email, photo path, etc.</p>
+    <div class="row">
+      <div>
+        <label for="preset_b1">Broker 1</label>
+        <select id="preset_b1"><option value="">— Choose —</option></select>
+        <button type="button" id="btnApplyPreset1" class="secondary" style="margin-top:0.5rem;">Apply to Broker 1</button>
+      </div>
+      <div>
+        <label for="preset_b2">Broker 2</label>
+        <select id="preset_b2"><option value="">— Choose —</option></select>
+        <button type="button" id="btnApplyPreset2" class="secondary" style="margin-top:0.5rem;">Apply to Broker 2</button>
+      </div>
+    </div>
+  </fieldset>
 
   <fieldset>
     <legend>Broker (optional)</legend>
@@ -136,9 +227,6 @@
     <input id="b2_about_label" type="text" placeholder="About">
   </fieldset>
 
-  <label for="b_comment">Broker comment (optional)</label>
-  <textarea id="b_comment" rows="3"></textarea>
-
   <label for="exec_assist">Executive assistance (optional)</label>
   <p class="hint">One entry per line: a plain name (links to a broker card if it matches), or a single-line JSON object for name + contact, e.g. <code>{"name":"Taylor Short","title":"Executive Assistant","email":"…","phone":"(256) 487-1387","phone_tel":"+12564871387"}</code></p>
   <textarea id="exec_assist" rows="4" class="code" spellcheck="false" placeholder="Pat Smith"></textarea>
@@ -147,9 +235,23 @@
   <p class="hint">Folder or shared-drive link visitors use to open the full set of photos.</p>
   <input id="gallery_drive_url" type="url" placeholder="https://drive.google.com/drive/folders/…">
 
-  <label for="gallery">Gallery image URLs (optional)</label>
-  <p class="hint">One per line. Optional: <code>https://… | Alt text</code>. Google Drive <strong>file</strong> share links work if the file is shared as “Anyone with the link.”</p>
-  <textarea id="gallery" class="tall"></textarea>
+  <fieldset>
+    <legend>Photo gallery</legend>
+    <p class="hint"><strong>Top to bottom</strong> = order on the listing. <strong>Drag the ⋮⋮ handle</strong> on the left of each row to reorder (or use ↑ ↓). Uploads save into <code>assets/photos/</code> (run <code>python build.py</code> before publishing). You can still paste web or Google Drive links.</p>
+    <input type="file" id="gallery_file_input" accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif" multiple style="display:none">
+    <button type="button" id="btnGalleryUpload" class="secondary">Add photos from computer</button>
+    <button type="button" id="btnGalleryUrl" class="secondary">Add row (paste URL)</button>
+    <div class="row" style="margin-top:0.75rem;">
+      <div>
+        <label for="gallery_library_pick">Or add from files already in <code>assets/photos</code></label>
+        <select id="gallery_library_pick"><option value="">— Choose a file —</option></select>
+      </div>
+      <div style="align-self:flex-end;">
+        <button type="button" id="btnGalleryLibraryAdd" class="secondary">Add to gallery</button>
+      </div>
+    </div>
+    <div id="gallery-list" class="gallery-list"></div>
+  </fieldset>
 
   <label for="facts">Facts (bullet list)</label>
   <p class="hint">One line per bullet.</p>
@@ -171,14 +273,61 @@
 
   <div id="msg"></div>
 
+  <script src="/admin/vendor/quill/quill.js"></script>
   <script>
 (function () {
   const $ = (id) => document.getElementById(id);
+  const SLUG_OK = /^[a-z0-9][a-z0-9-]*$/;
+  var quillIntro = null;
+  var quillComment = null;
+  var previewTimer = null;
+  var previewSuspended = false;
 
   function showMsg(text, ok) {
     const el = $("msg");
     el.textContent = text;
     el.className = ok ? "ok" : "err";
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function paragraphsToHtml(paras) {
+    if (!paras || !paras.length) return "";
+    return paras.map(function (p) {
+      return "<p>" + escapeHtml(p) + "</p>";
+    }).join("");
+  }
+
+  function quillIsMeaningfullyEmpty(quill) {
+    if (!quill) return true;
+    return !quill.getText().replace(/\u00a0/g, " ").trim();
+  }
+
+  function setQuillHtml(quill, html) {
+    if (!quill) return;
+    quill.setText("");
+    if (html && String(html).trim()) {
+      quill.clipboard.dangerouslyPasteHTML(String(html));
+    }
+  }
+
+  function initQuills() {
+    if (typeof Quill === "undefined") {
+      console.warn("Quill failed to load from CDN.");
+      return;
+    }
+    var tbFull = [["bold", "italic", "underline"], ["link"], [{ list: "ordered" }, { list: "bullet" }], ["clean"]];
+    var tbSmall = [["bold", "italic", "link"], ["clean"]];
+    quillIntro = new Quill("#intro-editor", { theme: "snow", modules: { toolbar: tbFull } });
+    quillComment = new Quill("#b-comment-editor", { theme: "snow", modules: { toolbar: tbSmall } });
+    quillIntro.on("text-change", scheduleLivePreview);
+    quillComment.on("text-change", scheduleLivePreview);
   }
 
   function splitParagraphs(s) {
@@ -209,16 +358,296 @@
     });
   }
 
-  function parseGallery(s) {
-    return splitLines(s).map(function (line) {
-      var parts = line.split("|");
-      var src = parts[0].trim();
-      var alt = parts.length > 1 ? parts.slice(1).join("|").trim() : "";
-      return { src: src, alt: alt };
+  var brokerPresets = [];
+
+  function thumbUrlForSrc(src) {
+    var s = (src || "").trim();
+    var m = s.match(/^\.\.\/static\/(photos|brokers)\/(.+)$/);
+    if (m) return "/dev-asset/static/" + m[1] + "/" + m[2];
+    if (/^https?:\/\//i.test(s) || s.indexOf("//") === 0) return s;
+    return "";
+  }
+
+  function updateGalleryThumb(row) {
+    var srcInp = row.querySelector(".g-src");
+    var img = row.querySelector(".gallery-item__thumb img");
+    if (!srcInp || !img) return;
+    var tu = thumbUrlForSrc(srcInp.value);
+    if (tu) {
+      img.src = tu;
+    } else {
+      img.removeAttribute("src");
+    }
+  }
+
+  function appendGalleryRow(src, alt) {
+    var list = $("gallery-list");
+    var row = document.createElement("div");
+    row.className = "gallery-item";
+    row.innerHTML =
+      '<div class="gallery-item__handle" draggable="true" title="Drag to reorder photos" aria-label="Drag to reorder">⋮⋮</div>' +
+      '<div class="gallery-item__thumb"><img alt=""></div>' +
+      '<div class="gallery-item__fields">' +
+      '<label>Image URL or path<input type="text" class="g-src" placeholder="../static/photos/… or https://…"></label>' +
+      '<label>Description (optional)<input type="text" class="g-alt" placeholder="Alt text"></label></div>' +
+      '<div class="gallery-item__btns">' +
+      '<button type="button" class="btn-g-up secondary" title="Move up">↑</button>' +
+      '<button type="button" class="btn-g-down secondary" title="Move down">↓</button>' +
+      '<button type="button" class="btn-g-del secondary">Remove</button></div>';
+    list.appendChild(row);
+    row.querySelector(".g-src").value = src || "";
+    row.querySelector(".g-alt").value = alt || "";
+    updateGalleryThumb(row);
+    row.querySelector(".g-src").addEventListener("input", function () {
+      updateGalleryThumb(row);
+      scheduleLivePreview();
+    });
+    row.querySelector(".g-alt").addEventListener("input", scheduleLivePreview);
+    row.querySelector(".btn-g-up").addEventListener("click", function () {
+      moveGalleryRow(row, -1);
+    });
+    row.querySelector(".btn-g-down").addEventListener("click", function () {
+      moveGalleryRow(row, 1);
+    });
+    row.querySelector(".btn-g-del").addEventListener("click", function () {
+      var listEl = $("gallery-list");
+      row.remove();
+      if (!listEl.children.length) appendGalleryRow("", "");
+      scheduleLivePreview();
     });
   }
 
+  function moveGalleryRow(row, delta) {
+    var list = $("gallery-list");
+    var ch = Array.prototype.slice.call(list.children);
+    var i = ch.indexOf(row);
+    if (i < 0) return;
+    var j = i + delta;
+    if (j < 0 || j >= ch.length) return;
+    if (delta < 0) {
+      list.insertBefore(row, ch[j]);
+    } else {
+      list.insertBefore(ch[j], row);
+    }
+    scheduleLivePreview();
+  }
+
+  function renderGalleryList(items) {
+    var list = $("gallery-list");
+    list.innerHTML = "";
+    var arr = (items || []).filter(function (g) {
+      return g && (g.src || "").trim();
+    });
+    if (!arr.length) {
+      appendGalleryRow("", "");
+      return;
+    }
+    arr.forEach(function (g) {
+      appendGalleryRow(g.src, g.alt || "");
+    });
+  }
+
+  function collectGalleryFromDOM() {
+    var out = [];
+    $("gallery-list").querySelectorAll(".gallery-item").forEach(function (row) {
+      var src = (row.querySelector(".g-src") && row.querySelector(".g-src").value) || "";
+      var alt = (row.querySelector(".g-alt") && row.querySelector(".g-alt").value) || "";
+      src = src.trim();
+      alt = alt.trim();
+      if (src) out.push({ src: src, alt: alt });
+    });
+    return out;
+  }
+
+  var galleryDragRow = null;
+
+  function clearGalleryDropMarkers(list) {
+    list.querySelectorAll(".gallery-item--drop-before, .gallery-item--drop-after").forEach(function (el) {
+      el.classList.remove("gallery-item--drop-before", "gallery-item--drop-after");
+    });
+  }
+
+  function initGalleryDragDrop() {
+    var list = $("gallery-list");
+    if (!list || list.getAttribute("data-dnd-init") === "1") return;
+    list.setAttribute("data-dnd-init", "1");
+
+    list.addEventListener("dragstart", function (e) {
+      var h = e.target.closest(".gallery-item__handle");
+      if (!h) return;
+      galleryDragRow = h.closest(".gallery-item");
+      if (!galleryDragRow) return;
+      galleryDragRow.classList.add("gallery-item--dragging");
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", "gallery-row");
+    });
+
+    list.addEventListener("dragend", function () {
+      clearGalleryDropMarkers(list);
+      if (galleryDragRow) galleryDragRow.classList.remove("gallery-item--dragging");
+      galleryDragRow = null;
+    });
+
+    list.addEventListener("dragover", function (e) {
+      if (!galleryDragRow) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      var target = e.target.closest(".gallery-item");
+      if (!target || target === galleryDragRow) return;
+      var rect = target.getBoundingClientRect();
+      var before = e.clientY < rect.top + rect.height / 2;
+      clearGalleryDropMarkers(list);
+      target.classList.add(before ? "gallery-item--drop-before" : "gallery-item--drop-after");
+    });
+
+    list.addEventListener("dragleave", function (e) {
+      if (!galleryDragRow) return;
+      var rel = e.relatedTarget;
+      if (!rel || !list.contains(rel)) clearGalleryDropMarkers(list);
+    });
+
+    list.addEventListener("drop", function (e) {
+      e.preventDefault();
+      if (!galleryDragRow) return;
+      var target = e.target.closest(".gallery-item");
+      clearGalleryDropMarkers(list);
+      if (!target || target === galleryDragRow) {
+        if (galleryDragRow) galleryDragRow.classList.remove("gallery-item--dragging");
+        galleryDragRow = null;
+        return;
+      }
+      var rect = target.getBoundingClientRect();
+      var before = e.clientY < rect.top + rect.height / 2;
+      if (before) {
+        list.insertBefore(galleryDragRow, target);
+      } else {
+        list.insertBefore(galleryDragRow, target.nextSibling);
+      }
+      galleryDragRow.classList.remove("gallery-item--dragging");
+      galleryDragRow = null;
+      scheduleLivePreview();
+    });
+  }
+
+  function uploadPhotoFile(file, kind) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var dataUrl = reader.result;
+        var comma = dataUrl.indexOf(",");
+        var b64 = comma >= 0 ? dataUrl.slice(comma + 1) : dataUrl;
+        fetch("/api/upload-photo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            filename: file.name,
+            data_base64: b64,
+            kind: kind || "gallery"
+          })
+        })
+          .then(function (r) {
+            return r.json().then(function (j) {
+              return { ok: r.ok, j: j };
+            });
+          })
+          .then(function (x) {
+            if (x.ok && x.j.ok) resolve(x.j.src);
+            else reject(new Error((x.j && x.j.error) || "Upload failed"));
+          })
+          .catch(reject);
+      };
+      reader.onerror = function () {
+        reject(new Error("Could not read file"));
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function loadBrokerPresets() {
+    fetch("/api/broker-presets")
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (j) {
+        brokerPresets = j.presets || [];
+        var s1 = $("preset_b1");
+        var s2 = $("preset_b2");
+        s1.innerHTML = '<option value="">— Choose —</option>';
+        s2.innerHTML = '<option value="">— Choose —</option>';
+        brokerPresets.forEach(function (p, i) {
+          var lab = p.label || "Profile " + (i + 1);
+          var o1 = document.createElement("option");
+          o1.value = String(i);
+          o1.textContent = lab;
+          s1.appendChild(o1);
+          var o2 = document.createElement("option");
+          o2.value = String(i);
+          o2.textContent = lab;
+          s2.appendChild(o2);
+        });
+      })
+      .catch(function () {});
+  }
+
+  function loadPhotoLibrary() {
+    fetch("/api/list-photos")
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (j) {
+        var sel = $("gallery_library_pick");
+        var cur = sel.value;
+        sel.innerHTML = '<option value="">— Choose a file —</option>';
+        (j.files || []).forEach(function (name) {
+          var o = document.createElement("option");
+          o.value = name;
+          o.textContent = name;
+          sel.appendChild(o);
+        });
+        if (cur && Array.prototype.some.call(sel.options, function (o) { return o.value === cur; })) {
+          sel.value = cur;
+        }
+      })
+      .catch(function () {});
+  }
+
+  function applyBrokerPreset(slot) {
+    var sel = slot === 1 ? $("preset_b1") : $("preset_b2");
+    var idx = sel.value;
+    if (idx === "") {
+      showMsg("Choose a broker profile first.", false);
+      return;
+    }
+    var p = brokerPresets[parseInt(idx, 10)];
+    if (!p || !p.broker) return;
+    var b = p.broker;
+    if (slot === 1) {
+      $("has_broker").checked = true;
+      $("b_name").value = b.name || "";
+      $("b_title").value = b.title || "";
+      $("b_photo").value = b.photo || "";
+      $("b_phone").value = b.phone || "";
+      $("b_phone_tel").value = b.phone_tel || "";
+      $("b_email").value = b.email || "";
+      $("b_about_url").value = b.about_url || "";
+      $("b_about_label").value = b.about_label || "";
+    } else {
+      $("has_broker2").checked = true;
+      $("b2_name").value = b.name || "";
+      $("b2_title").value = b.title || "";
+      $("b2_photo").value = b.photo || "";
+      $("b2_phone").value = b.phone || "";
+      $("b2_phone_tel").value = b.phone_tel || "";
+      $("b2_email").value = b.email || "";
+      $("b2_about_url").value = b.about_url || "";
+      $("b2_about_label").value = b.about_label || "";
+    }
+    scheduleLivePreview();
+    showMsg("Broker " + slot + " filled from profile.", true);
+  }
+
   function propertyToForm(data) {
+    previewSuspended = true;
     $("slug").value = data.slug || "";
     $("title").value = data.title || "";
     $("location").value = data.location || "";
@@ -227,7 +656,11 @@
     $("status").value = data.status || "";
     $("hero_src").value = (data.hero_image && data.hero_image.src) || "";
     $("hero_alt").value = (data.hero_image && data.hero_image.alt) || "";
-    $("intro").value = (data.intro_paragraphs || []).join("\n\n");
+    if (data.intro_html) {
+      setQuillHtml(quillIntro, data.intro_html);
+    } else {
+      setQuillHtml(quillIntro, paragraphsToHtml(data.intro_paragraphs || []));
+    }
     var brokers = data.brokers || [];
     var b = brokers[0];
     $("has_broker").checked = !!(b && b.name);
@@ -249,16 +682,22 @@
     $("b2_email").value = (b2 && b2.email) || "";
     $("b2_about_url").value = (b2 && b2.about_url) || "";
     $("b2_about_label").value = (b2 && b2.about_label) || "";
-    $("b_comment").value = data.brokers_comment || "";
+    if (data.brokers_comment_html) {
+      setQuillHtml(quillComment, data.brokers_comment_html);
+    } else if (data.brokers_comment) {
+      setQuillHtml(quillComment, "<p><em>" + escapeHtml(data.brokers_comment) + "</em></p>");
+    } else {
+      setQuillHtml(quillComment, "");
+    }
     $("exec_assist").value = executiveAssistanceToText(data.executive_assistance || []);
     $("gallery_drive_url").value = data.gallery_drive_url || "";
-    $("gallery").value = (data.gallery_images || []).map(function (g) {
-      return g.alt ? g.src + " | " + g.alt : g.src;
-    }).join("\n");
+    renderGalleryList(data.gallery_images || []);
     $("facts").value = (data.facts || []).join("\n");
     $("map_url").value = data.map_embed_url || "";
     $("downloads_json").value = JSON.stringify(data.downloads || [], null, 2);
     $("tabs_json").value = JSON.stringify(data.detail_tabs || [], null, 2);
+    previewSuspended = false;
+    scheduleLivePreview();
   }
 
   function formToProperty() {
@@ -304,9 +743,17 @@
       });
     }
 
-    var comment = $("b_comment").value.trim();
     var execAssist = parseExecutiveAssistance($("exec_assist").value);
-    return {
+    var intro_paragraphs = quillIntro
+      ? quillIntro.getText().split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean)
+      : [];
+    var intro_html = quillIntro && !quillIsMeaningfullyEmpty(quillIntro)
+      ? quillIntro.root.innerHTML.trim()
+      : undefined;
+    var brokers_comment_html = quillComment && !quillIsMeaningfullyEmpty(quillComment)
+      ? quillComment.root.innerHTML.trim()
+      : undefined;
+    var out = {
       slug: slug,
       title: $("title").value.trim(),
       location: $("location").value.trim(),
@@ -317,17 +764,57 @@
         src: $("hero_src").value.trim(),
         alt: $("hero_alt").value.trim()
       },
-      intro_paragraphs: splitParagraphs($("intro").value),
+      intro_paragraphs: intro_paragraphs,
       brokers: brokers,
-      brokers_comment: comment ? comment : null,
+      brokers_comment: null,
       executive_assistance: execAssist.length ? execAssist : [],
       gallery_drive_url: $("gallery_drive_url").value.trim() || null,
-      gallery_images: parseGallery($("gallery").value),
+      gallery_images: collectGalleryFromDOM(),
       facts: splitLines($("facts").value),
       map_embed_url: $("map_url").value.trim() || null,
       downloads: downloads,
       detail_tabs: tabs
     };
+    if (intro_html) out.intro_html = intro_html;
+    if (brokers_comment_html) out.brokers_comment_html = brokers_comment_html;
+    return out;
+  }
+
+  function tryFormToProperty() {
+    try {
+      return formToProperty();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function scheduleLivePreview() {
+    if (previewSuspended || !quillIntro) return;
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(pushLivePreview, 450);
+  }
+
+  function pushLivePreview() {
+    var data = tryFormToProperty();
+    if (!data) return;
+    var st = $("live-status");
+    fetch("/api/preview-html", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    }).then(function (r) {
+      if (!r.ok) return r.text().then(function (t) { throw new Error(t.slice(0, 120)); });
+      return r.text();
+    }).then(function (html) {
+      var iframe = $("livePreview");
+      iframe.removeAttribute("src");
+      iframe.srcdoc = html;
+      if (st) st.textContent = "Preview updated";
+      setTimeout(function () { if (st) st.textContent = ""; }, 2000);
+    }).catch(function () {
+      if (st) st.textContent = "Preview skipped (check Downloads / Tabs JSON)";
+      setTimeout(function () { if (st) st.textContent = ""; }, 3500);
+    });
   }
 
   function loadList() {
@@ -341,18 +828,86 @@
     });
   }
 
+  function reloadLivePreview() {
+    var slug = $("pick").value.trim() || $("slug").value.trim();
+    var iframe = $("livePreview");
+    iframe.removeAttribute("srcdoc");
+    if (!slug || !SLUG_OK.test(slug)) {
+      iframe.src = "about:blank";
+      return;
+    }
+    iframe.src = "/live-preview?slug=" + encodeURIComponent(slug) + "&t=" + Date.now();
+  }
+
+  $("btnPreviewReload").addEventListener("click", function () {
+    $("msg").className = "";
+    var slug = $("pick").value.trim() || $("slug").value.trim();
+    if (!slug || !SLUG_OK.test(slug)) {
+      showMsg("Pick a saved property or enter a valid slug.", false);
+      return;
+    }
+    reloadLivePreview();
+    showMsg("Preview reloaded from disk.", true);
+  });
+
+  $("btnSaveZip").addEventListener("click", function () {
+    $("msg").className = "";
+    var iframe = $("livePreview");
+    var doc = iframe.contentDocument;
+    var hasSrcdoc = iframe.getAttribute("srcdoc") != null && iframe.getAttribute("srcdoc") !== "";
+    var hasSrc = iframe.src && iframe.src !== "about:blank";
+    if (!doc || !doc.documentElement || (!hasSrcdoc && !hasSrc)) {
+      showMsg("Wait for the live preview to load, or use Reload from disk.", false);
+      return;
+    }
+    var slug = $("slug").value.trim() || $("pick").value.trim() || "listing";
+    var html = "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
+    fetch("/api/export-zip", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ html: html, slug: slug })
+    }).then(async function (r) {
+      if (!r.ok) {
+        var errText = "HTTP " + r.status;
+        try {
+          var j = await r.json();
+          if (j && j.error) errText = j.error;
+        } catch (e) { /* ignore */ }
+        throw new Error(errText);
+      }
+      return r.blob();
+    }).then(function (blob) {
+      var a = document.createElement("a");
+      var safe = slug.replace(/[^a-zA-Z0-9_-]+/g, "-").replace(/^-|-$/g, "") || "listing";
+      a.href = URL.createObjectURL(blob);
+      a.download = safe + "-listing.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+      showMsg("ZIP downloaded (open index.html inside the archive).", true);
+    }).catch(function (e) {
+      showMsg(e.message || "Export failed.", false);
+    });
+  });
+
   $("pick").addEventListener("change", function () {
     var slug = $("pick").value;
     if (!slug) {
       propertyToForm({ slug: "", intro_paragraphs: [], facts: [], gallery_images: [], gallery_drive_url: null, brokers: [], executive_assistance: [], downloads: [], detail_tabs: [], hero_image: { src: "", alt: "" }, brokers_comment: null, map_embed_url: null });
       $("exec_assist").value = "";
       $("gallery_drive_url").value = "";
+      renderGalleryList([]);
       $("downloads_json").value = "[]";
       $("tabs_json").value = "[]";
       $("msg").className = "";
+      $("livePreview").src = "about:blank";
       return;
     }
-    loadProperty(slug).then(propertyToForm).catch(function () {
+    loadProperty(slug).then(function (d) {
+      propertyToForm(d);
+      reloadLivePreview();
+    }).catch(function () {
       showMsg("Could not load property.", false);
     });
   });
@@ -396,7 +951,9 @@
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (x) {
         if (x.ok && x.j.ok) {
-          showMsg("Saved. Run: python build.py", true);
+          showMsg("Saved. Run: python build.py (or use Live preview below).", true);
+          reloadLivePreview();
+          loadPhotoLibrary();
           return loadList();
         }
         showMsg(x.j.error || "Save failed", false);
@@ -419,6 +976,68 @@
       });
   });
 
+  document.addEventListener("input", function (e) {
+    if (e.target.closest && e.target.closest("#intro-editor, #b-comment-editor")) return;
+    if (e.target.matches && e.target.matches("input, textarea, select")) scheduleLivePreview();
+  });
+  document.addEventListener("change", function (e) {
+    if (e.target.matches && e.target.matches("input[type=checkbox], select")) scheduleLivePreview();
+  });
+
+  $("btnApplyPreset1").addEventListener("click", function () {
+    applyBrokerPreset(1);
+  });
+  $("btnApplyPreset2").addEventListener("click", function () {
+    applyBrokerPreset(2);
+  });
+  $("btnGalleryUpload").addEventListener("click", function () {
+    $("gallery_file_input").click();
+  });
+  $("btnGalleryUrl").addEventListener("click", function () {
+    appendGalleryRow("", "");
+    scheduleLivePreview();
+  });
+  $("btnGalleryLibraryAdd").addEventListener("click", function () {
+    var name = $("gallery_library_pick").value;
+    if (!name) {
+      showMsg("Pick a file from the list first.", false);
+      return;
+    }
+    appendGalleryRow("../static/photos/" + name, "");
+    scheduleLivePreview();
+  });
+  $("gallery_file_input").addEventListener("change", function (ev) {
+    var files = ev.target.files;
+    if (!files || !files.length) return;
+    var i = 0;
+    function next() {
+      if (i >= files.length) {
+        $("gallery_file_input").value = "";
+        loadPhotoLibrary();
+        scheduleLivePreview();
+        showMsg("Photo(s) added to gallery.", true);
+        return;
+      }
+      uploadPhotoFile(files[i], "gallery")
+        .then(function (src) {
+          appendGalleryRow(src, "");
+          i += 1;
+          next();
+        })
+        .catch(function (e) {
+          showMsg(e.message || "Upload failed", false);
+          $("gallery_file_input").value = "";
+        });
+    }
+    next();
+  });
+
+  initQuills();
+  renderGalleryList([]);
+  initGalleryDragDrop();
+  loadBrokerPresets();
+  loadPhotoLibrary();
+
   loadList().then(function (items) {
     var sel = $("pick");
     items.forEach(function (it) {
@@ -427,6 +1046,7 @@
       opt.textContent = it.title + " (" + it.slug + ")";
       sel.appendChild(opt);
     });
+    scheduleLivePreview();
   });
 })();
   </script>

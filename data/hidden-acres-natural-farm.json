@@ -1,0 +1,207 @@
+{
+  "slug": "hidden-acres-natural-farm",
+  "title": "Hidden Acres Natural Farm",
+  "location": "5855 Tony Peck Road, Murrayville, North Hall County, Georgia 30564",
+  "acres_label": "21.42± Acres",
+  "price_label": "$1,800,000",
+  "status": "Available",
+  "hero_image": {
+    "src": "../static/photos/0.jpg",
+    "alt": "Hidden Acres Natural Farm — hero"
+  },
+  "intro_paragraphs": [
+    "Welcome to Hidden Acres Natural Farm, a true Southern charmer—a meticulously maintained estate and working farm, set on 21.42 acres at 5855 Tony Peck Road in Murrayville, North Hall County. This picturesque and private property features fenced and cross-fenced pastures—ideal for horses or livestock—alongside a mix of pines and mature hardwoods, and a scenic ~3/4-acre spring-fed pond. The residence showcases timeless appeal with a pristine crisp white exterior; 4,480 square feet, with 4 bedrooms and 2.5 baths, complemented by a 3-car detached garage.",
+    "The gated entrance is framed by classic 4-board fencing which opens to a serene, nearly 1/4-mile winding drive, passing a fenced pasture on the left and tranquil woods to the right. When you reach the home a charming wrought-iron gate opens to the landscaped courtyard, where flowering shrubs and curated greenery frame the inviting verandah. From nearly every window, the views are breathtaking.",
+    "Inside, hardwood floors, recessed lighting, and soothing tones carry throughout. The slate tile foyer opens to a well-appointed kitchen featuring rich, dark wood cabinetry with detailed trim, complemented by granite countertops and a warm-toned basketweave tumbled marble backsplash. The raised breakfast bar provides additional seating and separation from the main kitchen workspace, with stainless steel appliances. The space flows seamlessly into a bright breakfast room with a large bay of windows overlooking the scenic pastures, creating an inviting setting for morning coffee and watching the sun rise.",
+    "The kitchen connects to the family room with a wet bar, where vaulted ceilings with a subtle cathedral pitch, abundant natural light, and a wood-burning fireplace as the focal point create a warm gathering space that opens to a covered porch—ideal for entertaining.",
+    "Off the foyer is a guest half bath, a well-designed mudroom, and a large laundry area with its own utility sink and plenty of storage space.",
+    "The secondary bedrooms share an en-suite bath and feature rich, earthy-toned walls, crisp white trim, crown molding, and hardwood floors. Large windows fill the spaces with natural light and offer serene views of the surrounding greenery, creating a peaceful and welcoming retreat for guests or family.",
+    "The family room and kitchen transition to the formal dining room, which comfortably seats eight to ten and offers views of additional manicured grounds and the serene pond. An oversized hallway leads to a versatile flex space with dual closets and French doors to the porch, ideal as a fourth bedroom or home office. The light-filled lounge welcomes you with an abundance of windows and a cozy window seat—perfect for quiet mornings or watching the sunset.",
+    "The thoughtfully designed split-bedroom floor plan offers privacy to the spacious primary suite, which features a large walk-in closet with built-ins and French doors leading to a well-appointed en-suite bath with double vanities, a jetted soaking tub, and a spa-inspired walk-in shower with triple shower heads, tile flooring, and a tranquil waterfall accent. A second set of French doors opens to a private courtyard overlooking rolling pastures.",
+    "Outdoors, the courtyard showcases river rock accents overlooking the fenced and cross-fenced rolling pastures. Dual rocking-chair porches enhance the home's Southern appeal. This spectacular private retreat includes peaceful walking trails, a 2,100 square-foot barn with electricity—easily adaptable to up to eight horse stalls. Nearby, a fenced chicken area with an automated coop entry enhances the farm's functionality, along with a large two-door shed with electricity and an RV carport. The pastures include open barns, watering stations, and access to several additional fenced areas, while a whole-house generator provides added peace of mind.",
+    "The two-car attached garage has been thoughtfully converted into a conditioned bonus space with a kitchenette. A must see!"
+  ],
+  "brokers": [
+    {
+      "name": "Mycah Ortiz",
+      "title": "Agent",
+      "photo": "../static/brokers/mycah.jpg",
+      "phone": "334-614-0116",
+      "phone_tel": "+13346140116"
+    },
+    {
+      "name": "Julie G'vitale",
+      "title": "Broker (Georgia & Florida)",
+      "photo": "../static/brokers/julie.jpg",
+      "phone": "708-810-3581",
+      "phone_tel": "+17088103581",
+      "email": "julie@meadows-hale.com"
+    }
+  ],
+  "brokers_comment": "Hidden Acres Natural Farm pairs a gracious 4,480 sq. ft. residence with turnkey farm infrastructure—pastures, pond, barn, and outbuildings—on a private 21.42-acre North Hall County setting.",
+  "executive_assistance": [
+    {
+      "name": "Taylor Short",
+      "title": "Executive Assistant",
+      "email": "taylor@meadows-hale.com",
+      "phone": "(256) 487-1387",
+      "phone_tel": "+12564871387"
+    }
+  ],
+  "gallery_drive_url": null,
+  "gallery_images": [
+    {
+      "src": "../static/photos/1.jpeg",
+      "alt": "Hidden Acres Natural Farm — 1"
+    },
+    {
+      "src": "../static/photos/10a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 10a"
+    },
+    {
+      "src": "../static/photos/11a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 11a"
+    },
+    {
+      "src": "../static/photos/11ab.jpeg",
+      "alt": "Hidden Acres Natural Farm — 11ab"
+    },
+    {
+      "src": "../static/photos/12a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 12a"
+    },
+    {
+      "src": "../static/photos/13ab.jpeg",
+      "alt": "Hidden Acres Natural Farm — 13ab"
+    },
+    {
+      "src": "../static/photos/14a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 14a"
+    },
+    {
+      "src": "../static/photos/15a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 15a"
+    },
+    {
+      "src": "../static/photos/16a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 16a"
+    },
+    {
+      "src": "../static/photos/17a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 17a"
+    },
+    {
+      "src": "../static/photos/18a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 18a"
+    },
+    {
+      "src": "../static/photos/19a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 19a"
+    },
+    {
+      "src": "../static/photos/20a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 20a"
+    },
+    {
+      "src": "../static/photos/21a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 21a"
+    },
+    {
+      "src": "../static/photos/21ab.jpeg",
+      "alt": "Hidden Acres Natural Farm — 21ab"
+    },
+    {
+      "src": "../static/photos/22a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 22a"
+    },
+    {
+      "src": "../static/photos/23a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 23a"
+    },
+    {
+      "src": "../static/photos/24a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 24a"
+    },
+    {
+      "src": "../static/photos/26a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 26a"
+    },
+    {
+      "src": "../static/photos/2a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 2a"
+    },
+    {
+      "src": "../static/photos/3a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 3a"
+    },
+    {
+      "src": "../static/photos/4a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 4a"
+    },
+    {
+      "src": "../static/photos/6a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 6a"
+    },
+    {
+      "src": "../static/photos/6ab.jpeg",
+      "alt": "Hidden Acres Natural Farm — 6ab"
+    },
+    {
+      "src": "../static/photos/7a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 7a"
+    },
+    {
+      "src": "../static/photos/8a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 8a"
+    },
+    {
+      "src": "../static/photos/9a.jpeg",
+      "alt": "Hidden Acres Natural Farm — 9a"
+    }
+  ],
+  "facts": [
+    "21.42± acres at 5855 Tony Peck Road, Murrayville, North Hall County, Georgia—gated entry, winding drive, fenced and cross-fenced pastures",
+    "Scenic ~3/4-acre spring-fed pond; mix of pines and mature hardwoods; walking trails",
+    "4,480 sq. ft. residence, 4 bedrooms, 2.5 baths; crisp white exterior; 3-car detached garage; two-car attached converted to conditioned bonus space with kitchenette",
+    "Split-bedroom plan; primary suite with walk-in closet, en-suite bath, and private courtyard access",
+    "2,100 sq. ft. barn with electricity (adaptable to up to eight stalls); chicken area with automated coop entry; large two-door shed with electricity; RV carport; whole-house generator"
+  ],
+  "map_embed_url": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/embed",
+  "helpful_links": [
+    {
+      "title": "Parcel locator — directions & lot lines",
+      "description": "Scan the QR code on your phone to open the Meadows-Hale parcel map. Use it for driving directions to the residence and to see property boundaries while you are on site.",
+      "href": "https://m-graf.github.io/meadows-hale-parcel-locator/client.html?map=dcebf05ce824cd5d11f0f0777a0f67fa",
+      "link_text": "Open parcel locator"
+    },
+    {
+      "title": "Land id® interactive map",
+      "description": "Scan to open the shared Land id map in your browser. Explore aerial imagery, terrain, and surrounding parcels to understand the property in context.",
+      "href": "https://id.land/maps/dcebf05ce824cd5d11f0f0777a0f67fa/share",
+      "link_text": "Open interactive map"
+    }
+  ],
+  "downloads": [
+    {
+      "title": "Maps & documents (Google Drive)",
+      "href": "https://drive.google.com/drive/folders/1whiTx94AtW8nd5hGjTvDaDmVBGBUDnqC?usp=sharing",
+      "thumb": "../static/photos/0.jpg",
+      "thumb_alt": "Hidden Acres Natural Farm — hero",
+      "action_label": "Open folder"
+    }
+  ],
+  "detail_tabs": [
+    {
+      "label": "Location",
+      "images": [
+        {
+          "src": "https://www.wingsgroupllc.com/wp-content/uploads/2025/12/Location-CloudlandPastures-1.jpg",
+          "alt": "Location map"
+        }
+      ],
+      "paragraphs": [
+        "5855 Tony Peck Road, Murrayville, North Hall County, Georgia 30564—a private North Georgia farm estate convenient to Gainesville and Northeast Georgia amenities."
+      ]
+    }
+  ]
+}

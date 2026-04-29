@@ -133,22 +133,20 @@ body.property-page {
 }
 .property-nav__link:hover { text-decoration: underline; }
 
-/* Intro + broker(s) */
+/* Intro + broker(s): contact strip on top, full-width narrative below */
 .property-intro {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   padding-block: 2rem 1rem;
 }
-@media (min-width: 56rem) {
-  .property-intro {
-    grid-template-columns: 1fr minmax(16rem, 22rem);
-    align-items: start;
-  }
-  .property-intro--two-brokers {
-    grid-template-columns: 1fr minmax(28rem, 46rem);
-  }
+.property-intro__sidebar + .property-intro__copy {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
-.wysiwyg-pdc p { margin: 0 0 1rem; }
+.wysiwyg-pdc p {
+  margin: 0 0 1rem;
+}
 
 .property-intro__sidebar {
   display: flex;

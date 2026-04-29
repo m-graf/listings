@@ -75,13 +75,9 @@
       </nav>
 
       <div class="row">
+        {% set has_sidebar = (property.brokers and property.brokers|length > 0) or (property.executive_assistance and property.executive_assistance|length > 0) %}
         <div class="property-intro{% if property.brokers and property.brokers|length > 1 %} property-intro--two-brokers{% endif %}">
-          <div class="property-intro__copy wysiwyg-pdc">
-            {% for p in property.intro_paragraphs %}
-            <p>{{ p }}</p>
-            {% endfor %}
-          </div>
-          {% if (property.brokers and property.brokers|length > 0) or (property.executive_assistance and property.executive_assistance|length > 0) %}
+          {% if has_sidebar %}
           <div class="property-intro__sidebar">
           {% if property.brokers and property.brokers|length > 0 %}
           <div class="property-intro__brokers{% if property.brokers|length > 1 %} property-intro__brokers--multiple{% endif %}">
@@ -136,6 +132,17 @@
           {% endif %}
           </div>
           {% endif %}
+          {% if property.intro_html %}
+          <div class="property-intro__copy wysiwyg-pdc">
+            {{ property.intro_html | safe }}
+          </div>
+          {% elif property.intro_paragraphs %}
+          <div class="property-intro__copy wysiwyg-pdc">
+            {% for p in property.intro_paragraphs %}
+            <p>{{ p }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
 
@@ -161,7 +168,14 @@
       </div>
       {% endif %}
 
-      {% if property.brokers_comment %}
+      {% if property.brokers_comment_html %}
+      <div class="row">
+        <section class="property-comments wysiwyg-pdc">
+          <h3>Broker’s Comment</h3>
+          <div class="property-comments__body">{{ property.brokers_comment_html | safe }}</div>
+        </section>
+      </div>
+      {% elif property.brokers_comment %}
       <div class="row">
         <section class="property-comments wysiwyg-pdc">
           <h3>Broker’s Comment</h3>

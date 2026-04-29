@@ -22,6 +22,10 @@
       }
     },
     "intro_paragraphs": { "type": "array", "items": { "type": "string" } },
+    "intro_html": {
+      "type": "string",
+      "description": "Optional rich HTML for intro (editor). When set, template renders this instead of intro_paragraphs."
+    },
     "brokers": {
       "type": "array",
       "items": {
@@ -40,6 +44,10 @@
       }
     },
     "brokers_comment": { "type": ["string", "null"] },
+    "brokers_comment_html": {
+      "type": "string",
+      "description": "Optional rich HTML for broker comment; takes precedence over brokers_comment when set."
+    },
     "executive_assistance": {
       "type": "array",
       "description": "Plain string (name; link if matches a broker) or object with contact fields",

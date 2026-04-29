@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import platform
 import re
@@ -23,23 +24,11 @@ _DRIVE_FILE_PATH = re.compile(
     re.IGNORECASE,
 )
 _DRIVE_OPEN_ID = re.compile(r"[?&]id=([a-zA-Z0-9_-]+)", re.IGNORECASE)
-# Basenames like 1.jpeg, 2a.jpeg, 21ab.jpeg — same ordering as Finder “natural” sort
-_GALLERY_STEM_KEY = re.compile(r"^(\d+)([a-zA-Z]*)$", re.IGNORECASE)
 _HERO_STATIC_PHOTO = re.compile(r"^\.\./static/photos/([^/?#]+)$")
 HERO_MAX_DIMENSION = 1920
 HERO_JPEG_QUALITY = 86
 # Skip re-encoding heroes already this small (bytes), unless dimensions exceed max
 HERO_SKIP_JPEG_UNDER_BYTES = 650_000
-
-
-def gallery_sort_key(entry: dict) -> tuple:
-    """Sort key for gallery_images: ascending by number, then by letter suffix."""
-    src = (entry or {}).get("src") or ""
-    stem = Path(src).stem
-    m = _GALLERY_STEM_KEY.match(stem)
-    if m:
-        return (int(m.group(1)), m.group(2).lower())
-    return (10**9, stem.lower())
 
 
 def extract_drive_file_id(url: str) -> str | None:
@@ -126,6 +115,45 @@ STATIC = ROOT / "static"
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_site() -> dict:
+    site_path = DATA / "site.json"
+    return load_json(site_path) if site_path.is_file() else {"brand": "Properties"}
+
+
+def create_jinja_env() -> Environment:
+    env = Environment(
+        loader=FileSystemLoader(TEMPLATES),
+        autoescape=select_autoescape(["html", "xml", "j2"]),
+    )
+    env.filters["gallery_img_src"] = gallery_img_src
+    env.filters["gallery_link_href"] = gallery_link_href
+    env.filters["listing_inquiry_mailto"] = listing_inquiry_mailto_filter
+    env.filters["tojson"] = _tojson_filter
+    return env
+
+
+def render_property_html(
+    env: Environment,
+    site: dict,
+    prop: dict,
+    css_href: str,
+    *,
+    deep_copy: bool = True,
+) -> str:
+    """Render listing HTML. Use deep_copy=True for preview (avoids mutating JSON-backed dict)."""
+    if deep_copy:
+        prop = copy.deepcopy(prop)
+    images = prop.get("gallery_images")
+    if isinstance(images, list):
+        prop["gallery_images"] = [
+            x
+            for x in images
+            if isinstance(x, dict) and str((x.get("src") or "")).strip()
+        ]
+    tpl = env.get_template("property.html.j2")
+    return tpl.render(site=site, property=prop, css_href=css_href)
 
 
 def _tojson_filter(value) -> Markup:
@@ -277,17 +305,8 @@ def main() -> int:
         print("Missing data/ directory", file=sys.stderr)
         return 1
 
-    env = Environment(
-        loader=FileSystemLoader(TEMPLATES),
-        autoescape=select_autoescape(["html", "xml", "j2"]),
-    )
-    env.filters["gallery_img_src"] = gallery_img_src
-    env.filters["gallery_link_href"] = gallery_link_href
-    env.filters["listing_inquiry_mailto"] = listing_inquiry_mailto_filter
-    env.filters["tojson"] = _tojson_filter
-
-    site_path = DATA / "site.json"
-    site = load_json(site_path) if site_path.is_file() else {"brand": "Properties"}
+    env = create_jinja_env()
+    site = load_site()
 
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -313,19 +332,23 @@ def main() -> int:
                 shutil.copy2(f, dest_brokers / f.name)
         resize_broker_images(dest_brokers)
 
-    property_tpl = env.get_template("property.html.j2")
     listings: list[dict] = []
     dest_photos = DIST / "static" / "photos"
 
     for path in sorted(DATA.glob("*.json")):
-        if path.name in ("site.json", "property.schema.json"):
+        if path.name in ("site.json", "property.schema.json", "broker_presets.json"):
             continue
         prop = load_json(path)
         slug = prop.get("slug") or path.stem
         prop.setdefault("slug", slug)
         images = prop.get("gallery_images")
-        if isinstance(images, list) and images:
-            prop["gallery_images"] = sorted(images, key=gallery_sort_key)
+        if isinstance(images, list):
+            # Preserve JSON order from the editor (manual ordering). Drop empty entries.
+            prop["gallery_images"] = [
+                x
+                for x in images
+                if isinstance(x, dict) and str((x.get("src") or "")).strip()
+            ]
         if dest_photos.is_dir():
             optimize_hero_in_dist(prop, dest_photos)
         attach_helpful_link_qr_svgs(prop, slug, DIST / "static" / "qr")
@@ -337,10 +360,12 @@ def main() -> int:
             }
         )
 
-        html = property_tpl.render(
-            site=site,
-            property=prop,
-            css_href="../static/css/property.css",
+        html = render_property_html(
+            env,
+            site,
+            prop,
+            "../static/css/property.css",
+            deep_copy=False,
         )
         out_dir = DIST / slug
         out_dir.mkdir(parents=True)
